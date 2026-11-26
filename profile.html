@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | VAYORA</title>
+  <link rel="stylesheet" href="navbar.css">
+  <style>
+    :root {
+      --navy: #101426;
+      --cream: #f7f4ef;
+      --white: #fff;
+      --gold: #c7a66a;
+      --text: #171a2b;
+      --muted: #6f7180;
+      --border: #dedbd4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+    }
+    main { width: min(720px, 92%); margin: 42px auto 64px; }
+    .panel {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 18px 45px rgba(16, 20, 38, 0.08);
+    }
+    .eyebrow {
+      color: var(--gold);
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    h1 {
+      margin: 8px 0 6px;
+      font-family: Georgia, serif;
+      font-weight: normal;
+      color: var(--navy);
+      font-size: 40px;
+    }
+    .lead { color: var(--muted); margin: 0 0 24px; line-height: 1.6; }
+    .identity {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--navy);
+      color: #e1c891;
+      font: 700 24px Georgia, serif;
+    }
+    dl { margin: 0; display: grid; gap: 14px; }
+    .row {
+      display: grid;
+      gap: 4px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    dt { color: var(--muted); font-size: 12px; letter-spacing: 0.4px; text-transform: uppercase; }
+    dd { margin: 0; font-size: 16px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    a.button, button.button {
+      border: 0;
+      border-radius: 24px;
+      padding: 12px 18px;
+      background: var(--navy);
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    button.secondary, a.secondary {
+      background: transparent;
+      color: var(--navy);
+      border: 1px solid var(--navy);
+    }
+    footer { text-align: center; color: var(--muted); font-size: 13px; padding-bottom: 36px; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="navbar">
+      <a href="index.html" class="logo" aria-label="VAYORA home">
+        <span class="logo-mark">V</span>
+        <span class="logo-text"><strong>VAYORA</strong><small>THE EVENT MANAGER</small></span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html">Plan an Event</a>
+        <a href="my-events.html">My Events</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="login.html" class="nav-cta">Login / Register</a>
+      <button class="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel" id="profile"></section>
+  </main>
+  <footer>© 2026 VAYORA. Plan it. Experience it. Remember it.</footer>
+  <script src="vayora.js"></script>
+  <script src="auth-nav.js"></script>
+  <script>
+    var panel = document.getElementById("profile");
+    var account = Vayora.getAccount();
+
+    function row(label, value) {
+      var wrap = document.createElement("div");
+      wrap.className = "row";
+      var term = document.createElement("dt");
+      term.textContent = label;
+      var detail = document.createElement("dd");
+      detail.textContent = value;
+      wrap.append(term, detail);
+      return wrap;
+    }
+
+    if (!account) {
+      panel.innerHTML = '<p class="eyebrow">ACCOUNT</p><h1>My Profile</h1><p class="lead">Log in to see your account information.</p><div class="actions"><a class="button" href="login.html?next=profile.html">Login</a></div>';
+    } else {
+      var created = account.createdAt
+        ? new Date(account.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })
+        : "Saved in this browser";
+      var eyebrow = document.createElement("p");
+      eyebrow.className = "eyebrow";
+      eyebrow.textContent = "ACCOUNT";
+      var title = document.createElement("h1");
+      title.textContent = "My Profile";
+      var lead = document.createElement("p");
+      lead.className = "lead";
+      lead.textContent = "This account is stored in this browser for the college demonstration.";
+      var identity = document.createElement("div");
+      identity.className = "identity";
+      var avatar = document.createElement("div");
+      avatar.className = "avatar";
+      avatar.textContent = account.name.trim().charAt(0).toUpperCase();
+      var who = document.createElement("div");
+      var whoName = document.createElement("strong");
+      whoName.textContent = account.name;
+      var whoNote = document.createElement("div");
+      whoNote.textContent = "VAYORA member";
+      whoNote.style.color = "#6f7180";
+      who.append(whoName, whoNote);
+      identity.append(avatar, who);
+      var list = document.createElement("dl");
+      list.append(
+        row("Full name", account.name),
+        row("Email address", account.email),
+        row("Phone number", account.phone || "Not provided"),
+        row("Account created", created)
+      );
+      var actions = document.createElement("div");
+      actions.className = "actions";
+      var events = document.createElement("a");
+      events.className = "button";
+      events.href = "my-events.html";
+      events.textContent = "My Events";
+      var logout = document.createElement("button");
+      logout.className = "button secondary";
+      logout.type = "button";
+      logout.textContent = "Logout";
+      logout.addEventListener("click", function () {
+        Vayora.logout();
+        window.location.href = "index.html";
+      });
+      actions.append(events, logout);
+      panel.append(eyebrow, title, lead, identity, list, actions);
+    }
+
+    document.querySelector(".mobile-nav-toggle").addEventListener("click", function () {
+      var nav = document.querySelector(".main-nav");
+      var open = nav.classList.toggle("open");
+      this.setAttribute("aria-expanded", String(open));
+      this.textContent = open ? "×" : "☰";
+    });
+  </script>
+</body>
+</html>

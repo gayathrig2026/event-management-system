@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunburn Festival 2026 | VAYORA</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ==============================
+           EVENT DETAILS PAGE
+        ============================== */
+
+        .event-details-page {
+            background: var(--cream);
+            color: var(--text);
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .event-details-page .navbar {
+            width: 100%;
+        }
+
+        .event-details-page .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .event-details-page .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .event-details-page .nav-links a {
+            text-decoration: none;
+        }
+
+        /* Hero */
+        .event-hero {
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 100px 7%;
+            background:
+                linear-gradient(90deg, rgba(10, 13, 28, .92), rgba(10, 13, 28, .60)),
+                url("https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1800&q=85")
+                center/cover no-repeat;
+            color: white;
+        }
+
+        .event-hero-content {
+            max-width: 800px;
+            animation: fadeUp .8s ease;
+        }
+
+        .event-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,.35);
+            border-radius: 30px;
+            background: rgba(255,255,255,.10);
+            backdrop-filter: blur(8px);
+            font-size: 13px;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .event-hero h1 {
+            font-size: clamp(42px, 6vw, 76px);
+            line-height: 1;
+            margin-bottom: 22px;
+            color: white;
+        }
+
+        .event-description {
+            max-width: 680px;
+            font-size: 18px;
+            line-height: 1.7;
+            color: rgba(255,255,255,.85);
+            margin-bottom: 28px;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .hero-meta span {
+            padding: 10px 15px;
+            border-radius: 10px;
+            background: rgba(255,255,255,.12);
+            backdrop-filter: blur(8px);
+            font-size: 14px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #d9f5df;
+            color: #176b2c;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .event-hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .event-btn {
+            padding: 14px 24px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: .3s ease;
+            display: inline-block;
+        }
+
+        .event-btn-primary {
+            background: var(--gold);
+            color: #111;
+        }
+
+        .event-btn-primary:hover {
+            transform: translateY(-3px);
+            background: var(--gold-light);
+        }
+
+        .event-btn-outline {
+            border: 1px solid rgba(255,255,255,.45);
+            color: white;
+            background: rgba(255,255,255,.08);
+        }
+
+        .event-btn-outline:hover {
+            background: white;
+            color: var(--navy);
+            transform: translateY(-3px);
+        }
+
+        /* Countdown */
+        .countdown-section {
+            width: min(1050px, 90%);
+            margin: -65px auto 70px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .countdown-box {
+            background: var(--navy);
+            color: white;
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 20px 50px rgba(0,0,0,.18);
+            text-align: center;
+        }
+
+        .countdown-title {
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: var(--gold-light);
+            margin-bottom: 22px;
+        }
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .countdown-item {
+            padding: 15px;
+            border-right: 1px solid rgba(255,255,255,.12);
+        }
+
+        .countdown-item:last-child {
+            border-right: none;
+        }
+
+        .countdown-item strong {
+            display: block;
+            font-size: 42px;
+            color: white;
+        }
+
+        .countdown-item span {
+            font-size: 12px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* General sections */
+        .details-section {
+            width: min(1150px, 90%);
+            margin: 0 auto 80px;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-heading span {
+            color: var(--gold);
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(30px, 4vw, 44px);
+            margin: 8px 0 12px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+        /* Information cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 24px;
+            transition: .3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .info-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: #f2eee5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            margin-bottom: 17px;
+        }
+
+        .info-card small {
+            color: var(--muted);
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .info-card strong {
+            font-size: 16px;
+        }
+
+        /* About */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 45px;
+            align-items: center;
+        }
+
+        .about-image {
+            min-height: 400px;
+            border-radius: 24px;
+            background:
+                linear-gradient(rgba(16,20,38,.15), rgba(16,20,38,.15)),
+                url("https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=1000&q=85")
+                center/cover no-repeat;
+        }
+
+        .about-text h2 {
+            font-size: 40px;
+            margin: 8px 0 18px;
+        }
+
+        .about-text p {
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        /* Highlights */
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .highlight-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            transition: .3s ease;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow);
+        }
+
+        .highlight-card .highlight-icon {
+            font-size: 28px;
+            margin-bottom: 18px;
+        }
+
+        .highlight-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .highlight-card p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Timeline */
+        .timeline {
+            max-width: 800px;
+            margin: auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 120px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 100px 40px 1fr;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .timeline-time {
+            text-align: right;
+            font-weight: 600;
+            color: var(--gold);
+            font-size: 14px;
+        }
+
+        .timeline-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--gold);
+            border: 3px solid var(--cream);
+            box-shadow: 0 0 0 2px var(--gold);
+            z-index: 2;
+            justify-self: center;
+        }
+
+        .timeline-content {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 17px 20px;
+            border-radius: 14px;
+        }
+
+        .timeline-content h4 {
+            margin: 0 0 4px;
+        }
+
+        .timeline-content p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* Location */
+        .location-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+            background: white;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .location-map {
+            min-height: 350px;
+            background:
+                linear-gradient(rgba(16,20,38,.2), rgba(16,20,38,.2)),
+                url("https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1000&q=80")
+                center/cover no-repeat;
+        }
+
+        .location-info {
+            padding: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .location-info h2 {
+            font-size: 34px;
+            margin: 10px 0;
+        }
+
+        .location-info p {
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .map-btn {
+            width: fit-content;
+            padding: 13px 20px;
+            border-radius: 10px;
+            background: var(--navy);
+            color: white;
+            text-decoration: none;
+            transition: .3s ease;
+        }
+
+        .map-btn:hover {
+            background: var(--gold);
+            color: #111;
+            transform: translateY(-2px);
+        }
+
+        /* Rules */
+        .rules-box {
+            background: var(--navy);
+            color: white;
+            border-radius: 24px;
+            padding: 45px;
+        }
+
+        .rules-box h2 {
+            margin-top: 0;
+            font-size: 34px;
+        }
+
+        .rules-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 40px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .rules-list li {
+            color: #d9dbe3;
+            line-height: 1.6;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .rules-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--gold-light);
+            font-weight: bold;
+        }
+
+        /* Organizer */
+        .organizer-card {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .organizer-avatar {
+            min-width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: var(--navy);
+            color: var(--gold-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .organizer-card h3 {
+            margin: 0 0 7px;
+        }
+
+        .organizer-card p {
+            color: var(--muted);
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+
+        /* CTA */
+        .event-cta {
+            width: min(1050px, 90%);
+            margin: 0 auto 80px;
+            padding: 45px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            color: white;
+            text-align: center;
+        }
+
+        .event-cta h2 {
+            font-size: 34px;
+            margin: 0 0 12px;
+        }
+
+        .event-cta p {
+            color: #c9cbd4;
+            margin-bottom: 25px;
+        }
+
+        /* Animation */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+
+            .event-details-page .nav-links {
+                gap: 15px;
+            }
+
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-grid,
+            .location-card {
+                grid-template-columns: 1fr;
+            }
+
+            .highlight-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-image {
+                min-height: 300px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .event-details-page .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .event-details-page .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .event-hero {
+                min-height: 620px;
+                padding: 90px 6%;
+            }
+
+            .event-description {
+                font-size: 15px;
+            }
+
+            .countdown-section {
+                margin-top: -40px;
+            }
+
+            .countdown-box {
+                padding: 25px 15px;
+            }
+
+            .countdown {
+                gap: 5px;
+            }
+
+            .countdown-item {
+                padding: 8px 4px;
+            }
+
+            .countdown-item strong {
+                font-size: 27px;
+            }
+
+            .countdown-item span {
+                font-size: 9px;
+            }
+
+            .info-grid,
+            .highlight-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 76px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 60px 32px 1fr;
+                gap: 8px;
+            }
+
+            .timeline-time {
+                font-size: 11px;
+            }
+
+            .timeline-content {
+                padding: 14px;
+            }
+
+            .location-info {
+                padding: 30px;
+            }
+
+            .rules-box {
+                padding: 30px 24px;
+            }
+
+            .rules-list {
+                grid-template-columns: 1fr;
+            }
+
+            .organizer-card {
+                align-items: flex-start;
+            }
+
+            .event-cta {
+                padding: 35px 22px;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="navbar.css">
+</head>
+
+<body class="event-details-page">
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="site-header">
+  <div class="navbar">
+    <a href="index.html" class="logo" aria-label="VAYORA home">
+      <span class="logo-mark">V</span>
+      <span class="logo-text"><strong>VAYORA</strong><small>THE EVENT MANAGER</small></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="events.html" class="active" aria-current="page">Events</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="booking.html">Plan an Event</a>
+      <a href="my-events.html">My Events</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="login.html" class="nav-cta">Login / Register</a>
+    <button class="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+
+    <!-- ================= EVENT HERO ================= -->
+    <section class="event-hero">
+
+        <div class="event-hero-content">
+
+            <span class="event-badge">MUSIC & FESTIVAL</span>
+
+            <h1>Sunburn Festival 2026</h1>
+
+            <p class="event-description">
+                Experience an electrifying evening of world-class music,
+                unforgettable performances, immersive entertainment and
+                the unmistakable energy of Goa.
+            </p>
+
+            <span class="status-badge">● Registration Open</span>
+
+            <div class="hero-meta">
+                <span>📅 14 December 2026</span>
+                <span>🕓 4:00 PM – 11:00 PM</span>
+                <span>📍 Vagator Beach, Goa</span>
+                <span>₹2,499 onwards</span>
+            </div>
+
+            <div class="event-hero-actions">
+
+                <a href="event-details.html?id=music-festival" class="event-btn event-btn-primary">
+                    Register Now
+                </a>
+
+                <button class="event-btn event-btn-outline" id="calendarBtn">
+                    Add to Calendar
+                </button>
+
+                <button class="event-btn event-btn-outline" id="planBtn">
+                    Plan My Event
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= COUNTDOWN ================= -->
+    <section class="countdown-section">
+
+        <div class="countdown-box">
+
+            <div class="countdown-title">
+                EVENT STARTS IN
+            </div>
+
+            <div class="countdown">
+
+                <div class="countdown-item">
+                    <strong id="days">00</strong>
+                    <span>Days</span>
+                </div>
+
+                <div class="countdown-item">
+                    <strong id="hours">00</strong>
+                    <span>Hours</span>
+                </div>
+
+                <div class="countdown-item">
+                    <strong id="minutes">00</strong>
+                    <span>Minutes</span>
+                </div>
+
+                <div class="countdown-item">
+                    <strong id="seconds">00</strong>
+                    <span>Seconds</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= EVENT INFORMATION ================= -->
+    <section class="details-section">
+
+        <div class="section-heading">
+            <span>Event Information</span>
+
+            <h2>Everything You Need To Know</h2>
+
+            <p>
+                Keep all the important event details in one place before
+                you make your plans.
+            </p>
+        </div>
+
+        <div class="info-grid">
+
+            <div class="info-card">
+                <div class="info-icon">📅</div>
+                <small>Date</small>
+                <strong>14 December 2026</strong>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">🕓</div>
+                <small>Time</small>
+                <strong>4:00 PM – 11:00 PM</strong>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">🎪</div>
+                <small>Venue</small>
+                <strong>Vagator Beach</strong>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">📍</div>
+                <small>Location</small>
+                <strong>Goa, India</strong>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">💳</div>
+                <small>Ticket Price</small>
+                <strong>₹2,499 onwards</strong>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">⏳</div>
+                <small>Registration Deadline</small>
+                <strong>10 December 2026</strong>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">🎟️</div>
+                <small>Availability</small>
+                <strong>Registration Open</strong>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">🎵</div>
+                <small>Category</small>
+                <strong>Music & Festival</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT EVENT ================= -->
+    <section class="details-section">
+
+        <div class="about-grid">
+
+            <div class="about-image"></div>
+
+            <div class="about-text">
+
+                <span>ABOUT THE EVENT</span>
+
+                <h2>Where Music Meets The Coast</h2>
+
+                <p>
+                    Sunburn Festival 2026 brings together music lovers,
+                    performers and creators for an unforgettable evening
+                    beside the beautiful coastline of Goa.
+                </p>
+
+                <p>
+                    From high-energy live performances to immersive
+                    entertainment zones, the festival is designed to
+                    create an experience that continues long after the
+                    final beat.
+                </p>
+
+                <p>
+                    Whether you are travelling with friends, planning a
+                    weekend getaway or simply looking for your next
+                    unforgettable experience, VAYORA helps you organize
+                    every part of your event journey.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= HIGHLIGHTS ================= -->
+    <section class="details-section">
+
+        <div class="section-heading">
+
+            <span>Experience</span>
+
+            <h2>Event Highlights</h2>
+
+            <p>
+                Explore the experiences waiting for you at the festival.
+            </p>
+
+        </div>
+
+        <div class="highlight-grid">
+
+            <div class="highlight-card">
+                <div class="highlight-icon">🎤</div>
+                <h3>Live Music</h3>
+                <p>
+                    High-energy live sets and unforgettable musical
+                    performances throughout the evening.
+                </p>
+            </div>
+
+            <div class="highlight-card">
+                <div class="highlight-icon">⭐</div>
+                <h3>Celebrity Performances</h3>
+                <p>
+                    Special appearances and performances from popular
+                    artists and entertainers.
+                </p>
+            </div>
+
+            <div class="highlight-card">
+                <div class="highlight-icon">🍔</div>
+                <h3>Food & Beverages</h3>
+                <p>
+                    Discover a variety of food stalls, refreshments and
+                    festival favourites.
+                </p>
+            </div>
+
+            <div class="highlight-card">
+                <div class="highlight-icon">🎡</div>
+                <h3>Entertainment</h3>
+                <p>
+                    Interactive entertainment zones designed to keep the
+                    festival energy going.
+                </p>
+            </div>
+
+            <div class="highlight-card">
+                <div class="highlight-icon">📸</div>
+                <h3>Photo Zones</h3>
+                <p>
+                    Capture your favourite moments at specially designed
+                    festival photo spots.
+                </p>
+            </div>
+
+            <div class="highlight-card">
+                <div class="highlight-icon">🛍️</div>
+                <h3>Shopping</h3>
+                <p>
+                    Explore merchandise, fashion, accessories and
+                    festival-inspired products.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= EVENT SCHEDULE ================= -->
+    <section class="details-section">
+
+        <div class="section-heading">
+
+            <span>Plan Your Evening</span>
+
+            <h2>Event Schedule</h2>
+
+            <p>
+                A simple timeline to help you know what happens throughout
+                the evening.
+            </p>
+
+        </div>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <div class="timeline-time">4:00 PM</div>
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-content">
+                    <h4>Gates Open</h4>
+                    <p>Entry begins and attendees can explore the venue.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-time">5:00 PM</div>
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-content">
+                    <h4>Opening Performance</h4>
+                    <p>The festival officially begins with the opening act.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-time">6:30 PM</div>
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-content">
+                    <h4>Main Artist</h4>
+                    <p>A featured artist takes the stage for the main set.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-time">8:30 PM</div>
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-content">
+                    <h4>DJ Performance</h4>
+                    <p>An energetic DJ performance takes over the festival stage.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-time">10:30 PM</div>
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-content">
+                    <h4>Final Show</h4>
+                    <p>The evening reaches its final major performance.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-time">11:00 PM</div>
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-content">
+                    <h4>Event Ends</h4>
+                    <p>Festival activities officially conclude.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= LOCATION ================= -->
+    <section class="details-section">
+
+        <div class="section-heading">
+
+            <span>Location</span>
+
+            <h2>Find Your Way There</h2>
+
+        </div>
+
+        <div class="location-card">
+
+            <div class="location-map"></div>
+
+            <div class="location-info">
+
+                <span>📍 EVENT VENUE</span>
+
+                <h2>Vagator Beach</h2>
+
+                <p>
+                    Vagator Beach, Goa, India
+                    <br>
+                    A scenic coastal venue surrounded by the vibrant
+                    atmosphere of North Goa.
+                </p>
+
+                <a
+                    href="https://www.google.com/maps/search/?api=1&query=Vagator+Beach+Goa"
+                    target="_blank"
+                    class="map-btn"
+                >
+                    View on Map ↗
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= RULES ================= -->
+    <section class="details-section">
+
+        <div class="rules-box">
+
+            <span style="color: var(--gold-light); letter-spacing: 2px;">
+                IMPORTANT
+            </span>
+
+            <h2>Rules & Guidelines</h2>
+
+            <ul class="rules-list">
+
+                <li>
+                    Carry a valid government-issued photo ID for entry.
+                </li>
+
+                <li>
+                    Tickets are subject to availability and event terms.
+                </li>
+
+                <li>
+                    Outside food and beverages may not be permitted inside
+                    the venue.
+                </li>
+
+                <li>
+                    Follow all venue security checks and staff instructions.
+                </li>
+
+                <li>
+                    Keep your registration details ready
+                    at the entrance.
+                </li>
+
+                <li>
+                    Attendees are expected to maintain appropriate behaviour
+                    throughout the event.
+                </li>
+
+                <li>
+                    Event timings may change depending on the organizer.
+                </li>
+
+                <li>
+                    Check official event communication before travelling.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ORGANIZER ================= -->
+    <section class="details-section">
+
+        <div class="section-heading">
+
+            <span>Organizer</span>
+
+            <h2>Event Organizer</h2>
+
+        </div>
+
+        <div class="organizer-card">
+
+            <div class="organizer-avatar">
+                S
+            </div>
+
+            <div>
+
+                <h3>Sunburn Festival Team</h3>
+
+                <p>
+                    Professional event organizers bringing together
+                    large-scale music, entertainment and lifestyle
+                    experiences.
+                </p>
+
+                <p>
+                    ✉ events@sunburn.example
+                    &nbsp; • &nbsp;
+                    ☎ +91 90000 00000
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+    <section class="event-cta">
+
+        <h2>Ready to Experience Sunburn?</h2>
+
+        <p>
+            Secure your spot and start planning your event journey with VAYORA.
+        </p>
+
+        <a href="event-details.html?id=music-festival" class="event-btn event-btn-primary">
+            Register Now
+        </a>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div>
+                <h2>VAYORA</h2>
+                <p>Plan it. Experience it. Remember it.</p>
+            </div>
+
+            <div class="footer-links">
+
+                <a href="index.html">Home</a>
+                <a href="events.html">Events</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="contact.html">Contact</a>
+                <a href="booking.html">Plan an Event</a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 VAYORA. All rights reserved.
+        </div>
+
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+
+        /* LIVE EVENT COUNTDOWN */
+
+        const eventDate =
+            new Date("December 14, 2026 16:00:00").getTime();
+
+        const countdownTimer = setInterval(function () {
+
+            const now = new Date().getTime();
+
+            const difference = eventDate - now;
+
+            if (difference <= 0) {
+
+                clearInterval(countdownTimer);
+
+                document.getElementById("days").textContent = "00";
+                document.getElementById("hours").textContent = "00";
+                document.getElementById("minutes").textContent = "00";
+                document.getElementById("seconds").textContent = "00";
+
+                document.querySelector(".countdown-title").textContent =
+                    "EVENT HAS STARTED";
+
+                return;
+            }
+
+            const days = Math.floor(
+                difference / (1000 * 60 * 60 * 24)
+            );
+
+            const hours = Math.floor(
+                (difference / (1000 * 60 * 60)) % 24
+            );
+
+            const minutes = Math.floor(
+                (difference / (1000 * 60)) % 60
+            );
+
+            const seconds = Math.floor(
+                (difference / 1000) % 60
+            );
+
+            document.getElementById("days").textContent =
+                String(days).padStart(2, "0");
+
+            document.getElementById("hours").textContent =
+                String(hours).padStart(2, "0");
+
+            document.getElementById("minutes").textContent =
+                String(minutes).padStart(2, "0");
+
+            document.getElementById("seconds").textContent =
+                String(seconds).padStart(2, "0");
+
+        }, 1000);
+
+
+        /* ADD TO CALENDAR */
+
+        document.getElementById("calendarBtn").addEventListener(
+            "click",
+            function () {
+
+                const calendarData =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//VAYORA//Event Calendar//EN
+BEGIN:VEVENT
+UID:sunburn-festival-2026@vayora
+DTSTAMP:20260925T000000Z
+DTSTART:20261214T160000
+DTEND:20261214T230000
+SUMMARY:Sunburn Festival 2026
+DESCRIPTION:Sunburn Festival 2026 at Vagator Beach, Goa.
+LOCATION:Vagator Beach, Goa, India
+END:VEVENT
+END:VCALENDAR`;
+
+                const blob = new Blob(
+                    [calendarData],
+                    { type: "text/calendar;charset=utf-8" }
+                );
+
+                const url = URL.createObjectURL(blob);
+
+                const link = document.createElement("a");
+
+                link.href = url;
+                link.download = "sunburn-festival-2026.ics";
+
+                document.body.appendChild(link);
+
+                link.click();
+
+                document.body.removeChild(link);
+
+                URL.revokeObjectURL(url);
+
+                this.textContent = "Added ✓";
+            }
+        );
+
+
+        /* PLAN MY EVENT */
+
+        document.getElementById("planBtn").addEventListener(
+            "click",
+            function () {
+
+                this.textContent = "Planning Selected ✓";
+
+                this.style.background = "white";
+                this.style.color = "#101426";
+
+                alert(
+                    "Planning mode selected! Your travel, stay, checklist and budget tools can be connected here."
+                );
+
+            }
+        );
+
+    </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.querySelector(".mobile-nav-toggle");
+  const nav = document.querySelector(".site-header .main-nav");
+  if (toggle && nav) {
+    toggle.addEventListener("click", function () {
+      const open = nav.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+      toggle.textContent = open ? "×" : "☰";
+    });
+  }
+});
+</script>
+<script src="vayora.js"></script>
+<script src="auth-nav.js"></script>
+</body>
+</html> 

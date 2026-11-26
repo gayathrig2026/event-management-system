@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan an Event | VAYORA</title>
+  <link rel="stylesheet" href="navbar.css">
+  <style>
+    :root {
+      --navy: #101426;
+      --cream: #f7f4ef;
+      --white: #fff;
+      --gold: #c7a66a;
+      --text: #171a2b;
+      --muted: #6f7180;
+      --border: #dedbd4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+    }
+    .plan-hero {
+      padding: 72px 6% 56px;
+      text-align: center;
+      color: #fff;
+      background:
+        linear-gradient(rgba(16, 20, 38, 0.82), rgba(16, 20, 38, 0.9)),
+        url("https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1800&q=80") center/cover;
+    }
+    .plan-hero p.kicker {
+      margin: 0 0 14px;
+      color: #e1c891;
+      letter-spacing: 3px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .plan-hero h1 {
+      margin: 0 auto 16px;
+      max-width: 760px;
+      font-family: Georgia, serif;
+      font-weight: normal;
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1.1;
+    }
+    .plan-hero .lead {
+      margin: 0 auto;
+      max-width: 640px;
+      color: #d9d8df;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+    .plan-wrap {
+      width: min(820px, 92%);
+      margin: -36px auto 70px;
+    }
+    .plan-card, .success-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 18px 45px rgba(16, 20, 38, 0.08);
+      padding: 36px;
+    }
+    .plan-card h2 {
+      margin: 0 0 6px;
+      font-family: Georgia, serif;
+      font-weight: normal;
+      font-size: 28px;
+      color: var(--navy);
+    }
+    .plan-card .hint {
+      margin: 0 0 26px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    form { display: grid; gap: 16px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fdfcf9;
+      font: inherit;
+      color: var(--text);
+    }
+    textarea { min-height: 120px; resize: vertical; }
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid rgba(199, 166, 106, 0.45);
+      border-color: var(--gold);
+    }
+    .services {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 16px;
+    }
+    .services label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .services input { width: auto; }
+    button[type="submit"] {
+      margin-top: 8px;
+      border: 0;
+      border-radius: 28px;
+      padding: 14px 22px;
+      background: var(--navy);
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button[type="submit"]:hover { background: #1c2340; }
+    .success-card { display: none; text-align: center; }
+    .success-card h2 {
+      margin: 0 0 10px;
+      font-family: Georgia, serif;
+      font-weight: normal;
+      color: var(--navy);
+    }
+    .success-card p { color: var(--muted); line-height: 1.6; }
+    .success-card a {
+      display: inline-block;
+      margin: 8px 8px 0;
+      color: var(--navy);
+      font-weight: 700;
+    }
+    .site-footer {
+      text-align: center;
+      padding: 28px 16px 40px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    @media (max-width: 700px) {
+      .row, .services { grid-template-columns: 1fr; }
+      .plan-card, .success-card { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="navbar">
+      <a href="index.html" class="logo" aria-label="VAYORA home">
+        <span class="logo-mark">V</span>
+        <span class="logo-text"><strong>VAYORA</strong><small>THE EVENT MANAGER</small></span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html" class="active" aria-current="page">Plan an Event</a>
+        <a href="my-events.html">My Events</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="login.html" class="nav-cta">Login / Register</a>
+      <button class="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <section class="plan-hero">
+    <p class="kicker">I want to organise an event</p>
+    <h1>Let's Plan Your Perfect Event.</h1>
+    <p class="lead">From intimate celebrations to grand occasions, VAYORA brings your ideas to life. Tell us what you have in mind, and let us take care of the rest.</p>
+  </section>
+
+  <main class="plan-wrap">
+    <section class="plan-card" id="formCard">
+      <h2>Event requirements</h2>
+      <p class="hint">Share the details and VAYORA will contact you to discuss arrangements.</p>
+      <form id="planForm">
+        <div class="row">
+          <div>
+            <label for="name">Your Name</label>
+            <input id="name" name="name" type="text" required autocomplete="name">
+          </div>
+          <div>
+            <label for="email">Email Address</label>
+            <input id="email" name="email" type="email" required autocomplete="email">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="phone">Phone Number</label>
+            <input id="phone" name="phone" type="tel" required autocomplete="tel">
+          </div>
+          <div>
+            <label for="eventType">Event Type</label>
+            <select id="eventType" name="eventType" required>
+              <option value="">Select a type</option>
+              <option>Wedding</option>
+              <option>Birthday</option>
+              <option>College Fest</option>
+              <option>Corporate</option>
+              <option>Concert</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="eventDate">Event Date</label>
+            <input id="eventDate" name="eventDate" type="date" required>
+          </div>
+          <div>
+            <label for="location">Event Location</label>
+            <input id="location" name="location" type="text" placeholder="City or preferred venue" required>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="guests">Expected Guests</label>
+            <input id="guests" name="guests" type="number" min="1" required>
+          </div>
+          <div>
+            <label for="budget">Budget Range</label>
+            <select id="budget" name="budget" required>
+              <option value="">Select a range</option>
+              <option>Under ₹25,000</option>
+              <option>₹25,000 – ₹1,00,000</option>
+              <option>₹1,00,000 – ₹5,00,000</option>
+              <option>₹5,00,000 – ₹15,00,000</option>
+              <option>Above ₹15,00,000</option>
+            </select>
+          </div>
+        </div>
+        <fieldset style="border:0;padding:0;margin:0;">
+          <legend style="font-size:13px;font-weight:600;color:#101426;margin-bottom:8px;">Services Required</legend>
+          <div class="services">
+            <label><input type="checkbox" name="services" value="Decoration"> Decoration</label>
+            <label><input type="checkbox" name="services" value="Catering"> Catering</label>
+            <label><input type="checkbox" name="services" value="Photography"> Photography</label>
+            <label><input type="checkbox" name="services" value="Venue"> Venue</label>
+            <label><input type="checkbox" name="services" value="Entertainment"> Entertainment</label>
+            <label><input type="checkbox" name="services" value="Complete Management"> Complete Management</label>
+          </div>
+        </fieldset>
+        <div>
+          <label for="details">Additional Details</label>
+          <textarea id="details" name="details" placeholder="Describe what you have in mind"></textarea>
+        </div>
+        <button type="submit">Submit Event Request</button>
+      </form>
+    </section>
+
+    <section class="success-card" id="successCard">
+      <h2>Request received</h2>
+      <p id="successText">VAYORA will contact you to discuss the arrangements. Your request is saved as Pending.</p>
+      <a href="my-events.html">View in My Events</a>
+      <a href="booking.html" id="anotherRequest">Submit another request</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">© 2026 VAYORA. Plan it. Experience it. Remember it.</footer>
+  <script src="vayora.js"></script>
+  <script>
+    document.getElementById("planForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      var form = event.currentTarget;
+      var services = Array.prototype.map.call(
+        form.querySelectorAll('input[name="services"]:checked'),
+        function (box) { return box.value; }
+      );
+      if (services.length === 0) {
+        alert("Select at least one service.");
+        return;
+      }
+      var saved = Vayora.saveRequest({
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        eventType: form.eventType.value,
+        date: form.eventDate.value,
+        location: form.location.value.trim(),
+        guests: form.guests.value,
+        budget: form.budget.value,
+        services: services,
+        details: form.details.value.trim()
+      });
+      document.getElementById("successText").textContent =
+        "Thank you, " + saved.name + ". Your " + saved.eventType.toLowerCase() +
+        " request " + saved.id + " is saved as Pending. VAYORA will contact you to discuss the arrangements.";
+      document.getElementById("formCard").style.display = "none";
+      document.getElementById("successCard").style.display = "block";
+    });
+
+    document.querySelector(".mobile-nav-toggle").addEventListener("click", function () {
+      var nav = document.querySelector(".main-nav");
+      var open = nav.classList.toggle("open");
+      this.setAttribute("aria-expanded", String(open));
+      this.textContent = open ? "×" : "☰";
+    });
+  </script>
+<script src="auth-nav.js"></script>
+</body>
+</html>

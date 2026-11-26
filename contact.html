@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Us | VAYORA</title>
+
+    <style>
+        :root {
+            --navy: #101426;
+            --navy-light: #181d34;
+            --cream: #f7f4ef;
+            --white: #ffffff;
+            --gold: #c7a66a;
+            --gold-light: #e1c891;
+            --text: #171a2b;
+            --muted: #6f7180;
+            --border: #dedbd4;
+            --shadow: 0 15px 40px rgba(16, 20, 38, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        /* NAVIGATION */
+
+        .navbar {
+            background: var(--navy);
+            padding: 18px 6%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1250px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: #f4f2ed;
+            font-size: 14px;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold-light);
+        }
+
+        .nav-links .book-btn {
+            background: var(--gold);
+            color: var(--navy);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+        }
+
+        .nav-links .book-btn:hover {
+            background: var(--gold-light);
+            color: var(--navy);
+        }
+
+        /* HERO */
+
+        .contact-hero {
+            background: var(--navy);
+            color: var(--white);
+            padding: 85px 20px 110px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-hero::before {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border: 1px solid rgba(199, 166, 106, 0.2);
+            border-radius: 50%;
+            top: -200px;
+            left: -100px;
+        }
+
+        .contact-hero::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgba(199, 166, 106, 0.2);
+            border-radius: 50%;
+            bottom: -210px;
+            right: -70px;
+        }
+
+        .eyebrow {
+            color: var(--gold-light);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .contact-hero h1 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(42px, 6vw, 68px);
+            font-weight: 500;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .contact-hero h1 span {
+            color: var(--gold-light);
+            font-style: italic;
+        }
+
+        .contact-hero p {
+            max-width: 610px;
+            margin: auto;
+            color: #c4c6d0;
+            font-size: 15px;
+        }
+
+        /* COMMON SECTION */
+
+        .section-container {
+            width: min(1120px, 90%);
+            margin: auto;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-heading .eyebrow {
+            color: #9a7b42;
+            margin-bottom: 10px;
+        }
+
+        .section-heading h2 {
+            color: var(--navy);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(30px, 4vw, 42px);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* CONTACT INFORMATION */
+
+        .contact-info-section {
+            padding: 0 0 85px;
+            margin-top: -35px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .contact-card {
+            background: var(--white);
+            padding: 28px 20px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold);
+        }
+
+        .contact-icon {
+            width: 52px;
+            height: 52px;
+            margin: 0 auto 17px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            background: #f5efe3;
+            color: #8a6c37;
+            font-size: 23px;
+        }
+
+        .contact-card h3 {
+            font-size: 15px;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .contact-card p,
+        .contact-card a {
+            color: var(--muted);
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .contact-card a:hover {
+            color: #9a7b42;
+        }
+
+        /* CONTACT FORM SECTION */
+
+        .contact-form-section {
+            padding: 20px 0 100px;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 0.85fr 1.4fr;
+            gap: 45px;
+            align-items: start;
+        }
+
+        .contact-intro {
+            padding: 35px 0;
+        }
+
+        .contact-intro .eyebrow {
+            color: #9a7b42;
+        }
+
+        .contact-intro h2 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(32px, 4vw, 43px);
+            font-weight: 500;
+            line-height: 1.25;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+
+        .contact-intro h2 span {
+            color: #a1844d;
+            font-style: italic;
+        }
+
+        .contact-intro > p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .contact-note {
+            display: flex;
+            gap: 13px;
+            align-items: flex-start;
+            padding: 18px;
+            border-left: 3px solid var(--gold);
+            background: #eee9df;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .contact-note span {
+            font-size: 21px;
+        }
+
+        .contact-note p {
+            color: #5e5d63;
+            font-size: 12px;
+        }
+
+        /* FORM CARD */
+
+        .contact-form-card {
+            background: var(--white);
+            padding: 38px;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-form-card h3 {
+            font-size: 23px;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+
+        .form-description {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .required {
+            color: #b34d4d;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            background: #fcfbf9;
+            color: var(--text);
+            padding: 13px 14px;
+            font-size: 13px;
+            outline: none;
+            transition: 0.25s;
+        }
+
+        .form-group input,
+        .form-group select {
+            height: 48px;
+        }
+
+        .form-group textarea {
+            min-height: 145px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(199, 166, 106, 0.12);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #a0a1a9;
+        }
+
+        .send-btn {
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            background: var(--navy);
+            color: var(--white);
+            padding: 15px 20px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .send-btn:hover {
+            background: #252b47;
+            box-shadow: 0 10px 22px rgba(16, 20, 38, 0.16);
+            transform: translateY(-2px);
+        }
+
+        .form-message {
+            display: none;
+            padding: 14px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .form-message.error {
+            display: block;
+            color: #a53636;
+            background: #fff2f0;
+            border: 1px solid #efceca;
+        }
+
+        .form-message.success {
+            display: block;
+            color: #28613d;
+            background: #eff8f1;
+            border: 1px solid #cde3d3;
+        }
+
+        /* SOCIAL MEDIA */
+
+        .social-section {
+            background: #eeebe4;
+            padding: 65px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .social-section h2 {
+            color: var(--navy);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 31px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .social-section p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 12px 22px;
+            border: 1px solid #d7d2c8;
+            border-radius: 30px;
+            color: var(--navy);
+            background: var(--white);
+            font-size: 12px;
+            font-weight: 700;
+            transition: 0.25s;
+        }
+
+        .social-link:hover {
+            background: var(--navy);
+            color: var(--white);
+            border-color: var(--navy);
+            transform: translateY(-3px);
+        }
+
+        /* FOOTER */
+
+        .footer {
+            background: var(--navy);
+            color: var(--white);
+            padding: 48px 6% 22px;
+        }
+
+        .footer-content {
+            max-width: 1180px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            padding-bottom: 28px;
+        }
+
+        .footer-brand h2 {
+            font-size: 25px;
+            letter-spacing: 3px;
+            margin-bottom: 7px;
+        }
+
+        .footer-brand p {
+            color: #aeb1bd;
+            font-size: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+        }
+
+        .footer-links a {
+            color: #c8cad2;
+            font-size: 12px;
+            transition: 0.25s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold-light);
+        }
+
+        .footer-bottom {
+            max-width: 1180px;
+            margin: auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888d9d;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        @media (max-width: 1000px) {
+            .contact-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .contact-intro {
+                padding: 0;
+            }
+        }
+
+        @media (max-width: 750px) {
+            .navbar {
+                position: relative;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 17px;
+            }
+
+            .nav-links {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 14px 20px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .contact-hero {
+                padding: 65px 20px 90px;
+            }
+
+            .contact-form-card {
+                padding: 26px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-card {
+                padding: 25px;
+            }
+
+            .section-container {
+                width: 92%;
+            }
+
+            .contact-info-section {
+                padding-bottom: 60px;
+            }
+
+            .contact-form-section {
+                padding-bottom: 70px;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="navbar.css">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <header class="site-header">
+  <div class="navbar">
+    <a href="index.html" class="logo" aria-label="VAYORA home">
+      <span class="logo-mark">V</span>
+      <span class="logo-text"><strong>VAYORA</strong><small>THE EVENT MANAGER</small></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="events.html">Events</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="booking.html">Plan an Event</a>
+      <a href="my-events.html">My Events</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active" aria-current="page">Contact</a>
+    </nav>
+    <a href="login.html" class="nav-cta">Login / Register</a>
+    <button class="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+
+    <!-- HERO SECTION -->
+
+    <section class="contact-hero">
+
+        <div class="eyebrow">WE'RE HERE FOR YOU</div>
+
+        <h1>Let's Start a <span>Conversation.</span></h1>
+
+        <p>
+            Have a question about an event, need booking assistance,
+            or want to collaborate with VAYORA? We'd love to hear from you.
+        </p>
+
+    </section>
+
+
+    <!-- CONTACT INFORMATION -->
+
+    <section class="contact-info-section">
+
+        <div class="section-container">
+
+            <div class="contact-cards">
+
+                <div class="contact-card">
+                    <div class="contact-icon">✉</div>
+                    <h3>Email Us</h3>
+                    <p>
+                        <a href="mailto:support@vayora.in">
+                            support@vayora.in
+                        </a>
+                    </p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">☎</div>
+                    <h3>Call Us</h3>
+                    <p>+91 98765 43210</p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">⌖</div>
+                    <h3>Our Location</h3>
+                    <p>Andhra Pradesh, India</p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">◷</div>
+                    <h3>Working Hours</h3>
+                    <p>Monday – Saturday</p>
+                    <p>9:00 AM – 6:00 PM</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTACT FORM -->
+
+    <section class="contact-form-section" id="contactFormSection">
+
+        <div class="section-container">
+
+            <div class="contact-layout">
+
+                <div class="contact-intro">
+
+                    <div class="eyebrow">GET IN TOUCH</div>
+
+                    <h2>
+                        We're just a <span>message</span> away.
+                    </h2>
+
+                    <p>
+                        Whether you're exploring events, planning a celebration,
+                        facing a booking issue, or interested in working with us,
+                        send us your message using the form.
+                    </p>
+
+                    <div class="contact-note">
+                        <span>✦</span>
+                        <p>
+                            <strong>Let's make it happen.</strong><br>
+                            Share your question with us and take the next step
+                            towards a memorable experience.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="contact-form-card">
+
+                    <h3>Send Us a Message</h3>
+
+                    <p class="form-description">
+                        Fill in the details below. Fields marked with *
+                        are required.
+                    </p>
+
+                    <div
+                        id="formMessage"
+                        class="form-message"
+                        role="status"
+                        aria-live="polite"
+                    ></div>
+
+                    <form id="contactForm" novalidate>
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+                                <label for="fullName">
+                                    Full Name <span class="required">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="fullName"
+                                    name="fullName"
+                                    placeholder="Enter your full name"
+                                    autocomplete="name"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">
+                                    Email Address <span class="required">*</span>
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="you@example.com"
+                                    autocomplete="email"
+                                    required
+                                >
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+                                <label for="phone">
+                                    Phone Number
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="Optional"
+                                    autocomplete="tel"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject">
+                                    Subject <span class="required">*</span>
+                                </label>
+
+                                <select id="subject" name="subject" required>
+                                    <option value="">Select a subject</option>
+                                    <option value="General Inquiry">
+                                        General Inquiry
+                                    </option>
+                                    <option value="Event Information">
+                                        Event Information
+                                    </option>
+                                    <option value="Booking Support">
+                                        Booking Support
+                                    </option>
+                                    <option value="Technical Issue">
+                                        Technical Issue
+                                    </option>
+                                    <option value="Partnership">
+                                        Partnership Opportunities
+                                    </option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="message">
+                                Your Message <span class="required">*</span>
+                            </label>
+
+                            <textarea
+                                id="message"
+                                name="message"
+                                placeholder="Tell us how we can help..."
+                                required
+                            ></textarea>
+                        </div>
+
+
+                        <button type="submit" class="send-btn">
+                            Send Message &nbsp; → 
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SOCIAL MEDIA -->
+
+    <section class="social-section">
+
+        <div class="section-container">
+
+            <div class="eyebrow">STAY CONNECTED</div>
+
+            <h2>Follow the VAYORA Journey</h2>
+
+            <p>
+                Discover inspiration and stay connected with our community.
+            </p>
+
+            <div class="social-links">
+
+                <!-- Replace # with your actual social media profile URLs. -->
+
+                <a href="#" class="social-link" data-placeholder="true">
+                    <span>◎</span> Instagram
+                </a>
+
+                <a href="#" class="social-link" data-placeholder="true">
+                    <span>in</span> LinkedIn
+                </a>
+
+                <a href="#" class="social-link" data-placeholder="true">
+                    <span>f</span> Facebook
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+                <h2>VAYORA</h2>
+                <p>Plan it. Experience it. Remember it.</p>
+            </div>
+
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="events.html">Events</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="contact.html">Contact</a>
+                <a href="booking.html">Plan an Event</a>
+                <a href="login.html">Login / Register</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 VAYORA. All rights reserved.
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+        const contactForm = document.getElementById("contactForm");
+        const formMessage = document.getElementById("formMessage");
+
+        const fullName = document.getElementById("fullName");
+        const email = document.getElementById("email");
+        const phone = document.getElementById("phone");
+        const subject = document.getElementById("subject");
+        const message = document.getElementById("message");
+
+        function showFormMessage(text, type) {
+            formMessage.textContent = text;
+            formMessage.className = "form-message " + type;
+
+            formMessage.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest"
+            });
+        }
+
+        function isValidEmail(value) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        }
+
+        contactForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            formMessage.className = "form-message";
+            formMessage.textContent = "";
+
+            const nameValue = fullName.value.trim();
+            const emailValue = email.value.trim();
+            const phoneValue = phone.value.trim();
+            const subjectValue = subject.value;
+            const messageValue = message.value.trim();
+
+            if (nameValue.length < 2) {
+                showFormMessage(
+                    "Please enter your full name.",
+                    "error"
+                );
+                fullName.focus();
+                return;
+            }
+
+            if (!isValidEmail(emailValue)) {
+                showFormMessage(
+                    "Please enter a valid email address.",
+                    "error"
+                );
+                email.focus();
+                return;
+            }
+
+            if (
+                phoneValue !== "" &&
+                !/^[0-9+\s()-]{7,20}$/.test(phoneValue)
+            ) {
+                showFormMessage(
+                    "Please enter a valid phone number or leave it blank.",
+                    "error"
+                );
+                phone.focus();
+                return;
+            }
+
+            if (subjectValue === "") {
+                showFormMessage(
+                    "Please select a subject.",
+                    "error"
+                );
+                subject.focus();
+                return;
+            }
+
+            if (messageValue.length < 10) {
+                showFormMessage(
+                    "Please enter a message containing at least 10 characters.",
+                    "error"
+                );
+                message.focus();
+                return;
+            }
+
+            showFormMessage(
+                "Thank you, " + nameValue +
+                "! Your message has passed validation. This is a front-end demonstration, so your message has not actually been sent.",
+                "success"
+            );
+
+            contactForm.reset();
+        });
+
+        // Placeholder social links stay on the page until real URLs are added.
+        document.querySelectorAll('[data-placeholder="true"]').forEach(function(link) {
+            link.addEventListener("click", function(event) {
+                event.preventDefault();
+            });
+        });
+    </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.querySelector(".mobile-nav-toggle");
+  const nav = document.querySelector(".site-header .main-nav");
+  if (toggle && nav) {
+    toggle.addEventListener("click", function () {
+      const open = nav.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+      toggle.textContent = open ? "×" : "☰";
+    });
+  }
+});
+</script>
+<script src="vayora.js"></script>
+<script src="auth-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events | VAYORA</title>
+  <link rel="stylesheet" href="navbar.css">
+  <style>
+    :root {
+      --navy: #101426;
+      --cream: #f7f4ef;
+      --white: #fff;
+      --gold: #c7a66a;
+      --text: #171a2b;
+      --muted: #6f7180;
+      --border: #dedbd4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+    }
+    .events-intro {
+      padding: 64px 6% 28px;
+      text-align: center;
+    }
+    .events-intro p.kicker {
+      margin: 0 0 10px;
+      color: var(--gold);
+      letter-spacing: 3px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .events-intro h1 {
+      margin: 0 0 12px;
+      font-family: Georgia, serif;
+      font-weight: normal;
+      font-size: clamp(36px, 5vw, 52px);
+      color: var(--navy);
+    }
+    .events-intro .lead {
+      margin: 0 auto;
+      max-width: 620px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .grid {
+      width: min(1100px, 92%);
+      margin: 10px auto 70px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 22px;
+    }
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .card img { width: 100%; height: 190px; object-fit: cover; display: block; }
+    .card-body { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .fee {
+      align-self: flex-start;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .fee.paid { background: #101426; color: #e1c891; }
+    .fee.free { background: #e9f5ec; color: #267349; }
+    .card h2 { margin: 0; font-family: Georgia, serif; font-weight: normal; font-size: 24px; color: var(--navy); }
+    .meta { margin: 0; color: var(--muted); font-size: 13px; }
+    .card p.desc { margin: 0; color: var(--text); font-size: 14px; line-height: 1.55; flex: 1; }
+    .card a.register {
+      margin-top: 8px;
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 24px;
+      padding: 11px 16px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .card a.register:hover { background: #1c2340; }
+    footer { text-align: center; color: var(--muted); font-size: 13px; padding: 0 16px 36px; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="navbar">
+      <a href="index.html" class="logo" aria-label="VAYORA home">
+        <span class="logo-mark">V</span>
+        <span class="logo-text"><strong>VAYORA</strong><small>THE EVENT MANAGER</small></span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="events.html" class="active" aria-current="page">Events</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html">Plan an Event</a>
+        <a href="my-events.html">My Events</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="login.html" class="nav-cta">Login / Register</a>
+      <button class="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <section class="events-intro">
+    <p class="kicker">I want to attend an event</p>
+    <h1>Events</h1>
+    <p class="lead">Discover public events organised by VAYORA. Some are free and some are paid. Register to take part. Payment is not collected in this version.</p>
+  </section>
+
+  <main class="grid" id="eventsGrid"></main>
+  <footer>© 2026 VAYORA. Plan it. Experience it. Remember it.</footer>
+  <script src="vayora.js"></script>
+  <script>
+    var grid = document.getElementById("eventsGrid");
+    Vayora.events.forEach(function (eventItem) {
+      var when = Vayora.formatDate(eventItem.date);
+      var article = document.createElement("article");
+      article.className = "card";
+
+      var image = document.createElement("img");
+      image.src = eventItem.image;
+      image.alt = eventItem.name;
+
+      var body = document.createElement("div");
+      body.className = "card-body";
+
+      var fee = document.createElement("span");
+      fee.className = "fee " + eventItem.fee.toLowerCase();
+      fee.textContent = eventItem.fee;
+
+      var title = document.createElement("h2");
+      title.textContent = eventItem.name;
+
+      var meta = document.createElement("p");
+      meta.className = "meta";
+      meta.textContent = when.label + " · " + eventItem.time + " · " + eventItem.location;
+
+      var desc = document.createElement("p");
+      desc.className = "desc";
+      desc.textContent = eventItem.description;
+
+      var link = document.createElement("a");
+      link.className = "register";
+      link.href = "event-details.html?id=" + encodeURIComponent(eventItem.id);
+      link.textContent = "Register Now";
+
+      body.append(fee, title, meta, desc, link);
+      article.append(image, body);
+      grid.appendChild(article);
+    });
+
+    document.querySelector(".mobile-nav-toggle").addEventListener("click", function () {
+      var nav = document.querySelector(".main-nav");
+      var open = nav.classList.toggle("open");
+      this.setAttribute("aria-expanded", String(open));
+      this.textContent = open ? "×" : "☰";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Registration | VAYORA</title>
+  <link rel="stylesheet" href="navbar.css">
+  <style>
+    :root {
+      --navy: #101426;
+      --cream: #f7f4ef;
+      --white: #fff;
+      --gold: #c7a66a;
+      --text: #171a2b;
+      --muted: #6f7180;
+      --border: #dedbd4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+    }
+    .banner { width: 100%; height: 320px; object-fit: cover; display: block; }
+    .wrap { width: min(760px, 92%); margin: -48px auto 64px; }
+    .panel {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 18px 45px rgba(16, 20, 38, 0.08);
+    }
+    .fee {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .fee.paid { background: #101426; color: #e1c891; }
+    .fee.free { background: #e9f5ec; color: #267349; }
+    h1 { margin: 14px 0 8px; font-family: Georgia, serif; font-weight: normal; color: var(--navy); font-size: 40px; }
+    .meta { color: var(--muted); margin: 0 0 16px; }
+    .desc { line-height: 1.7; margin: 0 0 24px; }
+    form { display: grid; gap: 14px; }
+    label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font: inherit;
+      background: #fdfcf9;
+    }
+    button, .back {
+      border: 0;
+      border-radius: 24px;
+      padding: 12px 18px;
+      background: var(--navy);
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .note { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+    .detail-list { display: grid; gap: 8px; margin: 0 0 20px; }
+    .detail-list div { display: flex; justify-content: space-between; gap: 16px; }
+    .detail-list span { color: var(--muted); }
+    .summary {
+      background: var(--cream);
+      border-radius: 12px;
+      padding: 16px;
+      display: grid;
+      gap: 8px;
+    }
+    .summary div { display: flex; justify-content: space-between; gap: 16px; font-weight: 700; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .cancel {
+      background: transparent;
+      color: var(--navy);
+      border: 1px solid var(--navy);
+    }
+    .error { color: #9b2c2c; margin: 0; font-size: 14px; }
+    .success { display: none; background: #e9f5ec; border-radius: 12px; padding: 16px; }
+    .missing { padding: 48px 6%; text-align: center; }
+    footer { text-align: center; color: var(--muted); font-size: 13px; padding-bottom: 36px; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="navbar">
+      <a href="index.html" class="logo" aria-label="VAYORA home">
+        <span class="logo-mark">V</span>
+        <span class="logo-text"><strong>VAYORA</strong><small>THE EVENT MANAGER</small></span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="events.html" class="active" aria-current="page">Events</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html">Plan an Event</a>
+        <a href="my-events.html">My Events</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="login.html" class="nav-cta">Login / Register</a>
+      <button class="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main id="page"></main>
+  <footer>© 2026 VAYORA. Plan it. Experience it. Remember it.</footer>
+  <script src="vayora.js"></script>
+  <script>
+    function line(label, value) {
+      var row = document.createElement("div");
+      var name = document.createElement("span");
+      name.textContent = label;
+      var detail = document.createElement("strong");
+      detail.textContent = value;
+      row.append(name, detail);
+      return row;
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var eventItem = Vayora.getEvent(params.get("id"));
+    var page = document.getElementById("page");
+
+    if (!eventItem) {
+      page.innerHTML = '<section class="missing"><h1>Event not found</h1><p><a class="back" href="events.html">Back to Events</a></p></section>';
+    } else if (!Vayora.getSession()) {
+      var returnTo = "event-details.html?id=" + encodeURIComponent(eventItem.id);
+      window.location.replace("login.html?next=" + encodeURIComponent(returnTo));
+    } else {
+      document.title = eventItem.name + " | VAYORA";
+      var session = Vayora.getSession();
+      var when = Vayora.formatDate(eventItem.date);
+      var already = Vayora.isRegistered(eventItem.id);
+      var price = Vayora.formatPrice(eventItem);
+      var seats = Vayora.getSeats(eventItem.id);
+
+      var banner = document.createElement("img");
+      banner.className = "banner";
+      banner.src = eventItem.image;
+      banner.alt = eventItem.name;
+
+      var wrap = document.createElement("div");
+      wrap.className = "wrap";
+      var panel = document.createElement("section");
+      panel.className = "panel";
+
+      var fee = document.createElement("span");
+      fee.className = "fee " + eventItem.fee.toLowerCase();
+      fee.textContent = eventItem.fee === "Free" ? "FREE" : "Paid";
+
+      var title = document.createElement("h1");
+      title.textContent = eventItem.name;
+
+      var desc = document.createElement("p");
+      desc.className = "desc";
+      desc.textContent = eventItem.description;
+
+      var facts = document.createElement("div");
+      facts.className = "detail-list";
+      facts.append(
+        line("Date", when.label),
+        line("Time", eventItem.time),
+        line("Venue", eventItem.location),
+        line("Registration price", price)
+      );
+      if (typeof seats === "number") facts.appendChild(line("Available seats", String(seats)));
+
+      var heading = document.createElement("h2");
+      heading.textContent = "Attendee registration";
+      heading.style.fontFamily = "Georgia, serif";
+      heading.style.fontWeight = "normal";
+      heading.style.color = "#101426";
+
+      var note = document.createElement("p");
+      note.className = "note";
+      note.textContent = eventItem.fee === "Paid"
+        ? "This is a paid event. Confirming registration saves your place. Payment is not collected in this demo."
+        : "This event is free. No payment is required.";
+
+      panel.append(fee, title, desc, facts, heading, note);
+
+      if (already) {
+        var done = document.createElement("p");
+        done.innerHTML = 'You are already registered for this event. <a href="my-events.html">See it in My Events</a>.';
+        panel.appendChild(done);
+      } else if (seats === 0) {
+        var full = document.createElement("p");
+        full.className = "error";
+        full.textContent = "This event is full.";
+        panel.appendChild(full);
+      } else {
+        var form = document.createElement("form");
+        form.innerHTML =
+          '<div><label for="name">Full Name</label><input id="name" name="name" required></div>' +
+          '<div><label for="email">Email</label><input id="email" name="email" type="email" required></div>' +
+          '<div><label for="phone">Phone Number</label><input id="phone" name="phone" type="tel" maxlength="10" required></div>';
+        form.name.value = session.name || "";
+        form.email.value = session.email || "";
+        form.phone.value = session.phone || "";
+
+        var summary = document.createElement("div");
+        summary.className = "summary";
+        summary.append(
+          line("Event", eventItem.name),
+          line("Total amount", price)
+        );
+
+        var error = document.createElement("p");
+        error.className = "error";
+        error.hidden = true;
+
+        var actions = document.createElement("div");
+        actions.className = "actions";
+        var confirm = document.createElement("button");
+        confirm.type = "submit";
+        confirm.textContent = "Confirm Registration";
+        var cancel = document.createElement("a");
+        cancel.className = "back cancel";
+        cancel.href = "events.html";
+        cancel.textContent = "Cancel";
+        actions.append(confirm, cancel);
+
+        var success = document.createElement("div");
+        success.className = "success";
+        success.innerHTML = "<p><strong>Registration successful.</strong> Your place is saved. Payment was not collected.</p>";
+        var view = document.createElement("a");
+        view.className = "back";
+        view.href = "my-events.html";
+        view.textContent = "Go to My Events";
+        success.appendChild(view);
+
+        form.append(summary, error, actions);
+        form.addEventListener("submit", function (submitEvent) {
+          submitEvent.preventDefault();
+          error.hidden = true;
+          var attendeeName = form.name.value.trim();
+          var attendeeEmail = form.email.value.trim();
+          var attendeePhone = form.phone.value.trim();
+          if (attendeeName.length < 3) {
+            error.textContent = "Please enter the attendee's full name.";
+            error.hidden = false;
+            return;
+          }
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(attendeeEmail)) {
+            error.textContent = "Please enter a valid email address.";
+            error.hidden = false;
+            return;
+          }
+          if (!/^[0-9]{10}$/.test(attendeePhone)) {
+            error.textContent = "Please enter a valid 10-digit phone number.";
+            error.hidden = false;
+            return;
+          }
+          var result = Vayora.saveRegistration({
+            eventId: eventItem.id,
+            eventName: eventItem.name,
+            date: eventItem.date,
+            time: eventItem.time,
+            location: eventItem.location,
+            name: attendeeName,
+            email: attendeeEmail,
+            phone: attendeePhone
+          });
+          if (!result.ok) {
+            error.textContent = result.message;
+            error.hidden = false;
+            return;
+          }
+          form.style.display = "none";
+          success.style.display = "block";
+        });
+        panel.append(form, success);
+      }
+
+      wrap.appendChild(panel);
+      page.append(banner, wrap);
+    }
+
+    document.querySelector(".mobile-nav-toggle").addEventListener("click", function () {
+      var nav = document.querySelector(".main-nav");
+      var open = nav.classList.toggle("open");
+      this.setAttribute("aria-expanded", String(open));
+      this.textContent = open ? "×" : "☰";
+    });
+  </script>
+<script src="auth-nav.js"></script>
+</body>
+</html>
