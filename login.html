@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login / Register | VAYORA</title>
+
+    <style>
+        /* =========================================================
+           VAYORA LOGIN / REGISTER PAGE
+           Front-end college project only
+           No backend / database / real authentication
+        ========================================================= */
+
+        :root {
+            --navy: #101426;
+            --navy-light: #181d34;
+            --cream: #f7f4ef;
+            --white: #ffffff;
+            --gold: #c7a66a;
+            --gold-light: #e1c891;
+            --lavender: #aaa8d8;
+            --text: #171a2b;
+            --muted: #6f7180;
+            --border: #dedbd4;
+            --success: #3f7659;
+            --error: #b34d4d;
+            --shadow: 0 18px 50px rgba(16, 20, 38, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        .navbar {
+            background: var(--navy);
+            padding: 18px 6%;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.12);
+            position: relative;
+            z-index: 10;
+        }
+
+        .nav-container {
+            max-width: 1250px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .logo {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: #f4f2ed;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+
+        .book-btn {
+            background: var(--gold);
+            color: var(--navy) !important;
+            padding: 11px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+        }
+
+        .book-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        .login-active {
+            color: var(--gold-light) !important;
+            border: 1px solid rgba(225, 200, 145, 0.7);
+            padding: 9px 17px;
+            border-radius: 22px;
+            font-weight: 700;
+        }
+
+        /* =========================================================
+           MAIN AREA
+        ========================================================= */
+
+        .auth-section {
+            min-height: calc(100vh - 88px);
+            padding: 70px 20px 85px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative elements */
+
+        .decor {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .decor-one {
+            width: 430px;
+            height: 430px;
+            border: 1px solid rgba(199, 166, 106, 0.25);
+            top: -200px;
+            left: -170px;
+        }
+
+        .decor-two {
+            width: 350px;
+            height: 350px;
+            border: 1px solid rgba(170, 168, 216, 0.3);
+            right: -150px;
+            bottom: -170px;
+        }
+
+        .decor-three {
+            width: 100px;
+            height: 100px;
+            background: rgba(199, 166, 106, 0.08);
+            right: 12%;
+            top: 20%;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .auth-heading {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .eyebrow {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .auth-heading h1 {
+            color: var(--navy);
+            font-size: clamp(40px, 7vw, 52px);
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+            margin-bottom: 11px;
+        }
+
+        .auth-heading p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+           AUTH CARD
+        ========================================================= */
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(222, 219, 212, 0.9);
+            border-radius: 26px;
+            padding: 36px;
+            box-shadow: var(--shadow);
+            animation: cardAppear 0.5s ease;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .demo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 11px;
+            border-radius: 20px;
+            background: #f7f3e9;
+            border: 1px solid #eadfc8;
+            color: #806a3f;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            margin-bottom: 24px;
+        }
+
+        .demo-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+        }
+
+        /* =========================================================
+           FORMS
+        ========================================================= */
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 51px;
+            padding: 0 16px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: #fcfbf9;
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+            transition: 0.25s ease;
+        }
+
+        .form-input.password-input {
+            padding-right: 48px;
+        }
+
+        .form-input:focus {
+            background: var(--white);
+            border-color: var(--gold);
+            box-shadow: 0 0 0 4px rgba(199, 166, 106, 0.12);
+        }
+
+        .form-input::placeholder {
+            color: #a0a1a9;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 9px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 34px;
+            height: 34px;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: #777985;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s ease;
+        }
+
+        .password-toggle:hover {
+            background: #f0eee9;
+            color: var(--navy);
+        }
+
+        /* =========================================================
+           LOGIN OPTIONS
+        ========================================================= */
+
+        .login-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin: 5px 0 22px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .remember input {
+            width: 15px;
+            height: 15px;
+            accent-color: var(--navy);
+        }
+
+        .forgot-btn {
+            border: none;
+            background: transparent;
+            color: var(--navy);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .forgot-btn:hover {
+            color: var(--gold);
+        }
+
+        /* =========================================================
+           MESSAGES
+        ========================================================= */
+
+        .message {
+            display: none;
+            padding: 12px 14px;
+            border-radius: 11px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .error-message {
+            color: var(--error);
+            background: #fff4f2;
+            border: 1px solid #efceca;
+        }
+
+        .success-message {
+            color: var(--success);
+            background: #f1f8f3;
+            border: 1px solid #cde3d3;
+        }
+
+        /* =========================================================
+           BUTTONS
+        ========================================================= */
+
+        .primary-btn {
+            width: 100%;
+            height: 53px;
+            border: none;
+            border-radius: 14px;
+            background: var(--navy);
+            color: var(--white);
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .primary-btn:hover {
+            background: #202743;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(16, 20, 38, 0.18);
+        }
+
+        .primary-btn:active {
+            transform: translateY(0);
+        }
+
+        .secondary-btn {
+            width: 100%;
+            height: 48px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--white);
+            color: var(--navy);
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .secondary-btn:hover {
+            border-color: var(--gold);
+            background: #faf8f3;
+            transform: translateY(-2px);
+        }
+
+        /* =========================================================
+           DIVIDER
+        ========================================================= */
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin: 25px 0 19px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: #e8e5df;
+        }
+
+        .divider span {
+            color: #9697a0;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            white-space: nowrap;
+        }
+
+        /* =========================================================
+           SOCIAL BUTTONS
+        ========================================================= */
+
+        .social-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .social-btn {
+            height: 47px;
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0 12px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--white);
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .social-btn:hover {
+            border-color: #bbb8b0;
+            background: #faf9f6;
+            transform: translateY(-2px);
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            flex: 0 0 18px;
+        }
+
+        .social-icon svg {
+            display: block;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* =========================================================
+           REGISTER SWITCH
+        ========================================================= */
+
+        .switch-section {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 22px;
+            border-top: 1px solid #ece9e3;
+        }
+
+        .switch-section p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 9px;
+        }
+
+        .switch-btn {
+            border: none;
+            background: transparent;
+            color: var(--navy);
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .switch-btn:hover {
+            color: var(--gold);
+        }
+
+        /* =========================================================
+           TERMS
+        ========================================================= */
+
+        .terms {
+            margin-top: 22px;
+            text-align: center;
+            color: #999aa3;
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        .terms a {
+            color: #70717c;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .terms a:hover {
+            color: var(--navy);
+        }
+
+        /* =========================================================
+           MODAL
+        ========================================================= */
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(16, 20, 38, 0.6);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 410px;
+            background: var(--white);
+            border-radius: 22px;
+            padding: 32px;
+            text-align: center;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+            animation: modalAppear 0.25s ease;
+        }
+
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: translateY(15px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-icon {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 17px;
+            border-radius: 50%;
+            background: #f5efe3;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        .modal h2 {
+            color: var(--navy);
+            font-size: 22px;
+            margin-bottom: 9px;
+        }
+
+        .modal p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        .modal-close {
+            border: none;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 11px;
+            padding: 12px 25px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .footer {
+            background: var(--navy);
+            color: var(--white);
+            padding: 52px 6% 24px;
+        }
+
+        .footer-content {
+            max-width: 1180px;
+            margin: auto;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 40px;
+            padding-bottom: 32px;
+        }
+
+        .footer-brand h2 {
+            font-size: 25px;
+            letter-spacing: 3px;
+            margin-bottom: 9px;
+        }
+
+        .footer-brand p {
+            color: #aeb1bd;
+            font-size: 13px;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #c8cad2;
+            text-decoration: none;
+            font-size: 13px;
+            transition: 0.25s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold-light);
+        }
+
+        .footer-bottom {
+            max-width: 1180px;
+            margin: auto;
+            padding-top: 21px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #888d9d;
+            font-size: 11px;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 950px) {
+
+            .nav-container {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .nav-links {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 14px 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 16px 5%;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .nav-links {
+                gap: 10px 14px;
+            }
+
+            .nav-links a {
+                font-size: 11px;
+            }
+
+            .book-btn,
+            .login-active {
+                padding: 8px 12px;
+            }
+
+            .auth-section {
+                padding: 55px 16px 70px;
+            }
+
+            .auth-heading h1 {
+                font-size: 39px;
+            }
+
+            .auth-card {
+                padding: 25px 20px;
+                border-radius: 21px;
+            }
+
+            .social-btn {
+                font-size: 12px;
+                padding: 0 8px;
+            }
+
+            .login-options {
+                align-items: flex-start;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 380px) {
+
+            .nav-links {
+                gap: 8px 10px;
+            }
+
+            .nav-links a {
+                font-size: 10px;
+            }
+
+            .auth-card {
+                padding: 22px 17px;
+            }
+
+            .login-options {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .social-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="navbar.css">
+</head>
+
+<body>
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================== -->
+
+    <header class="site-header">
+  <div class="navbar">
+    <a href="index.html" class="logo" aria-label="VAYORA home">
+      <span class="logo-mark">V</span>
+      <span class="logo-text"><strong>VAYORA</strong><small>THE EVENT MANAGER</small></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="events.html">Events</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="booking.html">Plan an Event</a>
+      <a href="my-events.html">My Events</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="login.html" class="nav-cta active">Login / Register</a>
+    <button class="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+
+    <!-- =========================================================
+         AUTHENTICATION SECTION
+    ========================================================== -->
+
+    <main class="auth-section">
+
+        <div class="decor decor-one"></div>
+        <div class="decor decor-two"></div>
+        <div class="decor decor-three"></div>
+
+
+        <div class="auth-container">
+
+            <!-- Heading -->
+
+            <div class="auth-heading">
+
+                <div class="eyebrow">
+                    Your VAYORA Experience
+                </div>
+
+                <h1 id="authTitle">Welcome Back</h1>
+
+                <p id="authSubtitle">
+                    Sign in to continue your VAYORA experience.
+                </p>
+
+            </div>
+
+
+            <!-- Authentication Card -->
+
+            <section class="auth-card">
+
+        
+
+
+                <!-- =================================================
+                     LOGIN FORM
+                ================================================== -->
+
+                <form id="loginForm" class="auth-form active" novalidate>
+
+                    <div class="form-group">
+
+                        <label for="loginEmail">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            class="form-input"
+                            placeholder="Enter your email address"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="loginPassword">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                class="form-input password-input"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="loginPasswordToggle"
+                                aria-label="Show password"
+                            >
+                                ◉
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="login-options">
+
+                        <label class="remember">
+
+                            <input
+                                type="checkbox"
+                                id="rememberMe"
+                                checked
+                            >
+
+                            <span>Remember me</span>
+
+                        </label>
+
+
+                        <button
+                            type="button"
+                            class="forgot-btn"
+                            id="forgotPassword"
+                        >
+                            Forgot Password?
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="message error-message"
+                        id="loginError"
+                    ></div>
+
+
+                    <div
+                        class="message success-message"
+                        id="loginSuccess"
+                    >
+                        <strong>Login Successful!</strong>
+                        <br>
+                        Welcome back to VAYORA.
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        Sign In
+                    </button>
+
+
+                    <!-- Social Login -->
+
+                    <div class="divider">
+                        <span>OR CONTINUE WITH</span>
+                    </div>
+
+
+                    <div class="social-buttons">
+
+                        <button type="button" class="social-btn" id="googleLogin">
+                            <span class="social-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.5c-.3 1.5-1.1 2.8-2.4 3.6v3h3.9c2.3-2.1 3.5-5.2 3.5-8.7z"/>
+                                    <path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.9-2.9l-3.9-3c-1.1.7-2.4 1.2-4 1.2-3.1 0-5.7-2.1-6.6-4.9H1.4v3.1C3.4 21.3 7.4 24 12 24z"/>
+                                    <path fill="#FBBC05" d="M5.4 14.4c-.2-.7-.4-1.4-.4-2.4s.1-1.7.4-2.4V6.5H1.4C.5 8.3 0 10.1 0 12s.5 3.7 1.4 5.5l4-3.1z"/>
+                                    <path fill="#EA4335" d="M12 4.8c1.7 0 3.3.6 4.5 1.8l3.4-3.4C17.9 1.1 15.2 0 12 0 7.4 0 3.4 2.7 1.4 6.5l4 3.1C6.3 6.8 8.9 4.8 12 4.8z"/>
+                                </svg>
+                            </span>
+                            Continue with Google
+                        </button>
+
+                        <button type="button" class="social-btn" id="appleLogin">
+                            <span class="social-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path fill="#171a2b" d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.9-3.5.9s-1.8-.8-3-.8c-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.3 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7 2-.1 2.9-2.2c.7-1 1.2-2 1.5-3.1-3.9-1.5-3.8-5.3-3.8-5.4zM14.7 6.5c.6-.8 1.1-1.9.9-3-1 .1-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.5 2.9-1.3z"/>
+                                </svg>
+                            </span>
+                            Continue with Apple
+                        </button>
+
+                    </div>
+
+
+                    <!-- Register Switch -->
+
+                    <div class="switch-section">
+
+                        <p>New to VAYORA?</p>
+
+                        <button
+                            type="button"
+                            class="switch-btn"
+                            id="showRegister"
+                        >
+                            Create an Account
+                        </button>
+
+                    </div>
+
+
+                    <div class="terms">
+
+                        By continuing, you agree to VAYORA's
+
+                        <a href="#" onclick="return false;">
+                            Terms of Service
+                        </a>
+
+                        and
+
+                        <a href="#" onclick="return false;">
+                            Privacy Policy
+                        </a>.
+
+                    </div>
+
+                </form>
+
+
+                <!-- =================================================
+                     REGISTER FORM
+                ================================================== -->
+
+                <form id="registerForm" class="auth-form" novalidate>
+
+                    <div class="form-group">
+
+                        <label for="registerName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="registerName"
+                            class="form-input"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="registerEmail">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="registerEmail"
+                            class="form-input"
+                            placeholder="Enter your email address"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="registerPhone">
+                            Phone Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="registerPhone"
+                            class="form-input"
+                            placeholder="Enter your 10-digit phone number"
+                            maxlength="10"
+                            autocomplete="tel"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="registerPassword">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="password"
+                                id="registerPassword"
+                                class="form-input password-input"
+                                placeholder="Create a password"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="registerPasswordToggle"
+                                aria-label="Show password"
+                            >
+                                ◉
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                class="form-input password-input"
+                                placeholder="Confirm your password"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="confirmPasswordToggle"
+                                aria-label="Show password"
+                            >
+                                ◉
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="message error-message"
+                        id="registerError"
+                    ></div>
+
+
+                    <div
+                        class="message success-message"
+                        id="registerSuccess"
+                    >
+                        <strong>Account Created!</strong>
+                        <br>
+                        Welcome to VAYORA. This is a front-end demonstration.
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        Create Account
+                    </button>
+
+
+                    <div class="switch-section">
+
+                        <p>Already have a VAYORA account?</p>
+
+                        <button
+                            type="button"
+                            class="switch-btn"
+                            id="showLogin"
+                        >
+                            Back to Login
+                        </button>
+
+                    </div>
+
+
+                    <div class="terms">
+
+                        By creating an account, you agree to VAYORA's
+
+                        <a href="#" onclick="return false;">
+                            Terms of Service
+                        </a>
+
+                        and
+
+                        <a href="#" onclick="return false;">
+                            Privacy Policy
+                        </a>.
+
+                    </div>
+
+                </form>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================================
+         DEMO MESSAGE MODAL
+    ========================================================== -->
+
+    <div
+        class="modal-overlay"
+        id="modalOverlay"
+    >
+
+        <div class="modal">
+
+            <div class="modal-icon" id="modalIcon">
+                i
+            </div>
+
+            <h2 id="modalTitle">
+                Demo Feature
+            </h2>
+
+            <p id="modalMessage">
+                This feature is available only as a front-end demonstration.
+            </p>
+
+            <button
+                type="button"
+                class="modal-close"
+                id="modalClose"
+            >
+                Got it
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+
+                <h2>VAYORA</h2>
+
+                <p>
+                    Plan it. Experience it. Remember it.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="index.html">Home</a>
+
+                <a href="events.html">Events</a>
+
+                <a href="gallery.html">Gallery</a>
+
+                <a href="contact.html">Contact</a>
+
+                <a href="booking.html">Plan an Event</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            © 2026 VAYORA. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script src="vayora.js"></script>
+    <script>
+
+        /* =========================================================
+           GET ELEMENTS
+        ========================================================== */
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const registerForm =
+            document.getElementById("registerForm");
+
+        const authTitle =
+            document.getElementById("authTitle");
+
+        const authSubtitle =
+            document.getElementById("authSubtitle");
+
+
+        /* Login */
+
+        const loginEmail =
+            document.getElementById("loginEmail");
+
+        const loginPassword =
+            document.getElementById("loginPassword");
+
+        const loginError =
+            document.getElementById("loginError");
+
+        const loginSuccess =
+            document.getElementById("loginSuccess");
+
+
+        /* Register */
+
+        const registerName =
+            document.getElementById("registerName");
+
+        const registerEmail =
+            document.getElementById("registerEmail");
+
+        const registerPhone =
+            document.getElementById("registerPhone");
+
+        const registerPassword =
+            document.getElementById("registerPassword");
+
+        const confirmPassword =
+            document.getElementById("confirmPassword");
+
+        const registerError =
+            document.getElementById("registerError");
+
+        const registerSuccess =
+            document.getElementById("registerSuccess");
+
+
+        /* Switch buttons */
+
+        const showRegister =
+            document.getElementById("showRegister");
+
+        const showLogin =
+            document.getElementById("showLogin");
+
+
+        /* Modal */
+
+        const modalOverlay =
+            document.getElementById("modalOverlay");
+
+        const modalIcon =
+            document.getElementById("modalIcon");
+
+        const modalTitle =
+            document.getElementById("modalTitle");
+
+        const modalMessage =
+            document.getElementById("modalMessage");
+
+        const modalClose =
+            document.getElementById("modalClose");
+
+
+        /* =========================================================
+           EMAIL VALIDATION
+        ========================================================== */
+
+        function isValidEmail(email) {
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            return emailPattern.test(email);
+
+        }
+
+
+        /* =========================================================
+           SHOW ERROR
+        ========================================================== */
+
+        function showError(element, message) {
+
+            element.textContent = message;
+
+            element.style.display = "block";
+
+        }
+
+
+        /* =========================================================
+           CLEAR MESSAGE
+        ========================================================== */
+
+        function clearMessage(element) {
+
+            element.textContent = "";
+
+            element.style.display = "none";
+
+        }
+
+
+        /* =========================================================
+           SWITCH TO REGISTER
+        ========================================================== */
+
+        showRegister.addEventListener(
+            "click",
+            function() {
+
+                loginForm.classList.remove("active");
+
+                registerForm.classList.add("active");
+
+                authTitle.textContent =
+                    "Create Your Account";
+
+                authSubtitle.textContent =
+                    "Join VAYORA and start planning unforgettable experiences.";
+
+                clearMessage(loginError);
+
+                clearMessage(loginSuccess);
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+        );
+
+
+        /* =========================================================
+           SWITCH TO LOGIN
+        ========================================================== */
+
+        showLogin.addEventListener(
+            "click",
+            function() {
+
+                registerForm.classList.remove("active");
+
+                loginForm.classList.add("active");
+
+                authTitle.textContent =
+                    "Welcome Back";
+
+                authSubtitle.textContent =
+                    "Sign in to continue your VAYORA experience.";
+
+                clearMessage(registerError);
+
+                clearMessage(registerSuccess);
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+        );
+
+
+        /* =========================================================
+           PASSWORD VISIBILITY FUNCTION
+        ========================================================== */
+
+        function setupPasswordToggle(
+            passwordField,
+            toggleButton
+        ) {
+
+            toggleButton.addEventListener(
+                "click",
+                function() {
+
+                    if (
+                        passwordField.type === "password"
+                    ) {
+
+                        passwordField.type = "text";
+
+                        toggleButton.textContent = "◌";
+
+                        toggleButton.setAttribute(
+                            "aria-label",
+                            "Hide password"
+                        );
+
+                    } else {
+
+                        passwordField.type = "password";
+
+                        toggleButton.textContent = "◉";
+
+                        toggleButton.setAttribute(
+                            "aria-label",
+                            "Show password"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        setupPasswordToggle(
+            loginPassword,
+            document.getElementById(
+                "loginPasswordToggle"
+            )
+        );
+
+
+        setupPasswordToggle(
+            registerPassword,
+            document.getElementById(
+                "registerPasswordToggle"
+            )
+        );
+
+        setupPasswordToggle(
+            confirmPassword,
+            document.getElementById(
+                "confirmPasswordToggle"
+            )
+        );
+
+        function nextPage() {
+            var next = new URLSearchParams(window.location.search).get("next");
+            if (next && /^[a-z0-9_.-]+\.html(\?[a-zA-Z0-9_.%=&-]*)?$/.test(next)) {
+                return next;
+            }
+            return "index.html";
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        }
+
+        if (Vayora.getSession()) {
+            window.location.replace(nextPage());
+        } else if (new URLSearchParams(window.location.search).get("mode") === "register") {
+            showRegister.click();
+        }
+
+
+        /* =========================================================
+           LOGIN VALIDATION
+        ========================================================== */
+
+        loginForm.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+                clearMessage(loginError);
+
+                clearMessage(loginSuccess);
+
+                Vayora.loginUser({
+                    email: loginEmail.value.trim(),
+                    password: loginPassword.value,
+                    remember: document.getElementById("rememberMe").checked
+                }).then(function(result) {
+                    if (!result.ok) {
+                        showError(loginError, result.message);
+                        return;
+                    }
+
+                    loginSuccess.innerHTML =
+                        "<strong>Login successful.</strong><br>Welcome back, " +
+                        escapeHtml(result.user.name) + ".";
+                    loginSuccess.style.display = "block";
+                    window.setTimeout(function() {
+                        window.location.href = nextPage();
+                    }, 700);
+                });
+
+            }
+        );
+
+
+        /* =========================================================
+           REGISTER VALIDATION
+        ========================================================== */
+
+        registerForm.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+                clearMessage(registerError);
+
+                clearMessage(registerSuccess);
+
+
+                const name =
+                    registerName.value.trim();
+
+                const email =
+                    registerEmail.value.trim();
+
+                const phone =
+                    registerPhone.value.trim();
+
+                const password =
+                    registerPassword.value;
+
+                const confirm =
+                    confirmPassword.value;
+
+
+                if (name.length < 3) {
+
+                    showError(
+                        registerError,
+                        "Please enter your full name."
+                    );
+
+                    registerName.focus();
+
+                    return;
+                }
+
+
+                if (email === "") {
+
+                    showError(
+                        registerError,
+                        "Please enter your email address."
+                    );
+
+                    registerEmail.focus();
+
+                    return;
+                }
+
+
+                if (!isValidEmail(email)) {
+
+                    showError(
+                        registerError,
+                        "Please enter a valid email address."
+                    );
+
+                    registerEmail.focus();
+
+                    return;
+                }
+
+
+                if (!/^[0-9]{10}$/.test(phone)) {
+
+                    showError(
+                        registerError,
+                        "Please enter a valid 10-digit phone number."
+                    );
+
+                    registerPhone.focus();
+
+                    return;
+                }
+
+
+                if (password.length < 6) {
+
+                    showError(
+                        registerError,
+                        "Password must contain at least 6 characters."
+                    );
+
+                    registerPassword.focus();
+
+                    return;
+                }
+
+
+                if (password !== confirm) {
+
+                    showError(
+                        registerError,
+                        "Passwords do not match."
+                    );
+
+                    confirmPassword.focus();
+
+                    return;
+                }
+
+                Vayora.registerUser({
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    password: password,
+                    confirm: confirm,
+                    remember: true
+                }).then(function(result) {
+                    if (!result.ok) {
+                        showError(registerError, result.message);
+                        if (result.message.indexOf("already registered") !== -1) {
+                            registerEmail.focus();
+                        }
+                        return;
+                    }
+
+                    registerSuccess.innerHTML =
+                        "<strong>Account created.</strong><br>Welcome, " +
+                        escapeHtml(result.user.name) +
+                        ". This demo stores your account in this browser. The password is saved as a hash, not as plain text.";
+                    registerSuccess.style.display = "block";
+                    window.setTimeout(function() {
+                        window.location.href = nextPage();
+                    }, 900);
+                });
+
+            }
+        );
+
+
+        /* =========================================================
+           FORGOT PASSWORD
+        ========================================================== */
+
+        document
+            .getElementById("forgotPassword")
+            .addEventListener(
+                "click",
+                function() {
+
+                    openModal(
+                        "Password Recovery",
+                        "Password recovery is available in the full VAYORA platform.",
+                        "?"
+                    );
+
+                }
+            );
+
+
+        /* =========================================================
+           SOCIAL LOGIN DEMO
+        ========================================================== */
+
+        document
+            .getElementById("googleLogin")
+            .addEventListener(
+                "click",
+                function() {
+                    openModal(
+                        "Google sign-in",
+                        "Google sign-in is not connected. This college demo does not include Google OAuth. Create an account with your email and password instead.",
+                        "G"
+                    );
+                }
+            );
+
+        document
+            .getElementById("appleLogin")
+            .addEventListener(
+                "click",
+                function() {
+                    openModal(
+                        "Apple sign-in",
+                        "Apple sign-in is not connected. This college demo does not include Apple OAuth. Create an account with your email and password instead.",
+                        "A"
+                    );
+                }
+            );
+
+
+        /* =========================================================
+           MODAL
+        ========================================================== */
+
+        function openModal(
+            title,
+            message,
+            icon
+        ) {
+
+            modalTitle.textContent = title;
+
+            modalMessage.textContent = message;
+
+            modalIcon.textContent = icon;
+
+            modalOverlay.style.display = "flex";
+
+            modalClose.focus();
+
+        }
+
+
+        function closeModal() {
+
+            modalOverlay.style.display = "none";
+
+        }
+
+
+        modalClose.addEventListener(
+            "click",
+            closeModal
+        );
+
+
+        modalOverlay.addEventListener(
+            "click",
+            function(event) {
+
+                if (event.target === modalOverlay) {
+
+                    closeModal();
+
+                }
+
+            }
+        );
+
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Escape" &&
+                    modalOverlay.style.display === "flex"
+                ) {
+
+                    closeModal();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           CLEAR ERRORS WHILE TYPING
+        ========================================================== */
+
+        loginEmail.addEventListener(
+            "input",
+            function() {
+                clearMessage(loginError);
+            }
+        );
+
+        loginPassword.addEventListener(
+            "input",
+            function() {
+                clearMessage(loginError);
+            }
+        );
+
+        registerName.addEventListener(
+            "input",
+            function() {
+                clearMessage(registerError);
+            }
+        );
+
+        registerEmail.addEventListener(
+            "input",
+            function() {
+                clearMessage(registerError);
+            }
+        );
+
+        registerPhone.addEventListener(
+            "input",
+            function() {
+                clearMessage(registerError);
+            }
+        );
+
+        registerPassword.addEventListener(
+            "input",
+            function() {
+                clearMessage(registerError);
+            }
+        );
+
+        confirmPassword.addEventListener(
+            "input",
+            function() {
+                clearMessage(registerError);
+            }
+        );
+
+    </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.querySelector(".mobile-nav-toggle");
+  const nav = document.querySelector(".site-header .main-nav");
+  if (toggle && nav) {
+    toggle.addEventListener("click", function () {
+      const open = nav.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+      toggle.textContent = open ? "×" : "☰";
+    });
+  }
+});
+</script>
+<script src="auth-nav.js"></script>
+</body>
+</html>

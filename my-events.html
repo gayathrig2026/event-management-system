@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Events | VAYORA</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* =================================
+   VAYORA PREMIUM MY EVENTS DASHBOARD
+================================= */
+
+:root {
+    --navy: #17243b;
+    --navy-light: #243653;
+    --gold: #b49a62;
+    --gold-light: #e9dfc8;
+    --cream: #f8f6f1;
+    --white: #ffffff;
+    --text: #242b37;
+    --muted: #858995;
+    --border: #e9e5dc;
+    --green: #28784b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--text);
+    background: var(--cream);
+}
+
+a {
+    text-decoration: none;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+/* NAVIGATION */
+
+.vayora-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+    width: min(1200px, 91%);
+    margin: auto;
+    min-height: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.brand {
+    font-family: Georgia, serif;
+    font-size: 29px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    color: var(--navy);
+}
+
+.brand small {
+    display: block;
+    margin-top: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    font-weight: normal;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-align: center;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links a {
+    color: #626775;
+    font-size: 13px;
+    transition: color .2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--gold);
+}
+
+.nav-links .nav-cta {
+    padding: 12px 18px;
+    color: white;
+    background: var(--navy);
+    border-radius: 5px;
+}
+
+.nav-links .nav-cta:hover {
+    background: var(--gold);
+    color: white;
+}
+
+/* PAGE CONTAINER */
+
+.dashboard {
+    width: min(1120px, 90%);
+    margin: auto;
+}
+
+/* WELCOME BANNER */
+
+.welcome {
+    position: relative;
+    overflow: hidden;
+    margin-top: 38px;
+    padding: 43px 45px;
+    border-radius: 15px;
+    color: white;
+    background:
+        radial-gradient(ellipse at 95% 5%,
+        rgba(180,154,98,.23), transparent 35%),
+        linear-gradient(115deg, #17243b, #273954);
+}
+
+.welcome::after {
+    content: "V";
+    position: absolute;
+    right: 30px;
+    bottom: -100px;
+    font-family: Georgia, serif;
+    font-size: 290px;
+    line-height: 1;
+    color: rgba(255,255,255,.035);
+    pointer-events: none;
+}
+
+.eyebrow {
+    color: #dfc995;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.welcome h1 {
+    position: relative;
+    z-index: 1;
+    margin: 16px 0 12px;
+    font-family: Georgia, serif;
+    font-size: clamp(31px, 4vw, 43px);
+    font-weight: normal;
+    line-height: 1.2;
+}
+
+.welcome h1 em {
+    color: #d9c28c;
+    font-weight: normal;
+}
+
+.welcome p {
+    position: relative;
+    z-index: 1;
+    max-width: 510px;
+    color: #d5dbe4;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.welcome-bottom {
+    position: relative;
+    z-index: 1;
+    margin-top: 25px;
+}
+
+.gold-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 13px 19px;
+    border: 1px solid var(--gold);
+    border-radius: 5px;
+    background: var(--gold);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    transition: .25s;
+}
+
+.gold-button:hover {
+    background: transparent;
+    color: #e9d9b4;
+}
+
+/* STATISTICS */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin: 25px 0 40px;
+}
+
+.stat-card {
+    padding: 24px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    transition: transform .25s, box-shadow .25s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(23,36,59,.06);
+}
+
+.stat-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.stat-icon {
+    width: 39px;
+    height: 39px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: #f3efe5;
+    font-size: 17px;
+}
+
+.stat-number {
+    margin-top: 17px;
+    font-family: Georgia, serif;
+    font-size: 35px;
+    color: var(--navy);
+}
+
+.stat-note {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* BOOKINGS SECTION */
+
+.bookings-section {
+    padding: 30px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    margin-bottom: 30px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.section-kicker {
+    margin-bottom: 8px;
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+}
+
+.section-heading h2 {
+    margin: 0;
+    color: var(--navy);
+    font-family: Georgia, serif;
+    font-size: 29px;
+    font-weight: normal;
+}
+
+.section-heading p {
+    margin: 9px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* SEARCH */
+
+.controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.search-wrap {
+    position: relative;
+    flex: 1;
+}
+
+.search-wrap span {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+}
+
+.controls input,
+.controls select {
+    width: 100%;
+    min-height: 45px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    outline: none;
+    background: #fdfcf9;
+    color: var(--text);
+    font-size: 12px;
+}
+
+.controls input {
+    padding-left: 42px;
+}
+
+.controls input:focus,
+.controls select:focus {
+    border-color: var(--gold);
+}
+
+/* BOOKING CARD */
+
+.booking-list {
+    display: grid;
+    gap: 16px;
+}
+
+.booking-card {
+    display: grid;
+    grid-template-columns: 83px minmax(0, 1fr) auto;
+    gap: 23px;
+    align-items: center;
+    padding: 21px;
+    border: 1px solid #eeeae2;
+    border-radius: 9px;
+    transition: .25s;
+}
+
+.booking-card:hover {
+    border-color: #cbbb96;
+    background: #fffefa;
+}
+
+.date-tile {
+    align-self: stretch;
+    min-height: 103px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    background: var(--navy);
+    color: white;
+}
+
+.date-tile .month {
+    color: #d9c28c;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.date-tile .day {
+    margin: 5px 0;
+    font-family: Georgia, serif;
+    font-size: 35px;
+}
+
+.date-tile .year {
+    color: #d7dce5;
+    font-size: 10px;
+}
+
+.booking-info {
+    min-width: 0;
+}
+
+.booking-id {
+    margin-bottom: 8px;
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.booking-info h3 {
+    margin: 0 0 12px;
+    color: var(--navy);
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: normal;
+    overflow-wrap: anywhere;
+}
+
+.event-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px 17px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+/* STATUS AND ACTIONS */
+
+.booking-actions {
+    min-width: 125px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.status {
+    display: inline-block;
+    padding: 7px 10px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: .3px;
+}
+
+.status.confirmed {
+    color: #267349;
+    background: #e9f5ec;
+}
+
+.status.pending {
+    color: #946515;
+    background: #fff3d8;
+}
+
+.status.cancelled {
+    color: #ad3838;
+    background: #fbeaea;
+}
+
+.status.completed,
+.status.registered {
+    color: #53617a;
+    background: #edf0f5;
+}
+
+.status.discussion {
+    color: #2d4f86;
+    background: #e7eef8;
+}
+
+.action-row {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.small-button {
+    display: inline-block;
+    padding: 9px 11px;
+    border: 1px solid var(--navy);
+    border-radius: 4px;
+    background: var(--navy);
+    color: white;
+    font-size: 10px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.small-button:hover {
+    border-color: var(--gold);
+    background: var(--gold);
+}
+
+.small-button.cancel {
+    border-color: #e8dada;
+    background: white;
+    color: #a33c3c;
+}
+
+.small-button.cancel:hover {
+    border-color: #a33c3c;
+    background: #a33c3c;
+    color: white;
+}
+
+/* EMPTY STATE */
+
+.empty-state {
+    display: none;
+    padding: 55px 15px;
+    text-align: center;
+}
+
+.empty-icon {
+    width: 62px;
+    height: 62px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #f3efe5;
+    font-size: 25px;
+}
+
+.empty-state h3 {
+    margin: 0 0 10px;
+    color: var(--navy);
+    font-family: Georgia, serif;
+    font-size: 23px;
+    font-weight: normal;
+}
+
+.empty-state p {
+    margin: 0 0 20px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* FOOTER */
+
+.footer {
+    padding: 30px 15px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.footer strong {
+    color: var(--gold);
+    letter-spacing: 2px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 850px) {
+    .nav-inner {
+        padding: 18px 0;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        gap: 15px 21px;
+    }
+
+    .booking-card {
+        grid-template-columns: 72px minmax(0, 1fr);
+        gap: 17px;
+    }
+
+    .booking-actions {
+        grid-column: 2;
+        align-items: flex-start;
+    }
+
+    .action-row {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard {
+        width: 92%;
+    }
+
+    .welcome {
+        margin-top: 22px;
+        padding: 30px 23px;
+    }
+
+    .welcome::after {
+        right: -20px;
+        font-size: 200px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 25px;
+    }
+
+    .stat-card {
+        padding: 18px;
+    }
+
+    .stat-number {
+        font-size: 29px;
+        margin-top: 10px;
+    }
+
+    .bookings-section {
+        padding: 19px 14px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .section-heading h2 {
+        font-size: 25px;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    .booking-card {
+        padding: 13px;
+        grid-template-columns: 61px minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .date-tile {
+        min-height: 85px;
+    }
+
+    .date-tile .day {
+        font-size: 29px;
+    }
+
+    .booking-info h3 {
+        font-size: 17px;
+    }
+
+    .booking-actions {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        min-width: 0;
+    }
+
+    .action-row {
+        gap: 6px;
+    }
+
+    .small-button {
+        padding: 9px;
+    }
+}
+</style>
+  <link rel="stylesheet" href="navbar.css">
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<header class="site-header">
+  <div class="navbar">
+    <a href="index.html" class="logo" aria-label="VAYORA home">
+      <span class="logo-mark">V</span>
+      <span class="logo-text"><strong>VAYORA</strong><small>THE EVENT MANAGER</small></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="events.html">Events</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="booking.html">Plan an Event</a>
+      <a href="my-events.html" class="active" aria-current="page">My Events</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="login.html" class="nav-cta">Login / Register</a>
+    <button class="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main class="dashboard">
+
+    <!-- WELCOME BANNER -->
+
+    <section class="welcome">
+        <div class="eyebrow">YOUR PERSONAL DASHBOARD</div>
+
+        <h1>Your moments.<br>
+            Your memories. <em>Your events.</em>
+        </h1>
+
+        <p>
+            Track requests you sent VAYORA to organise,
+            and public events you have registered to attend.
+        </p>
+
+        <div class="welcome-bottom">
+            <a href="events.html" class="gold-button">
+                Explore Events <span>↗</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- STATISTICS -->
+
+    <section class="stats">
+
+        <article class="stat-card">
+            <div class="stat-top">
+                <span class="stat-label">Event Requests</span>
+                <span class="stat-icon">▤</span>
+            </div>
+
+            <div class="stat-number" id="totalRequests">0</div>
+            <div class="stat-note">Events you asked VAYORA to organise</div>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-top">
+                <span class="stat-label">Registrations</span>
+                <span class="stat-icon">◷</span>
+            </div>
+
+            <div class="stat-number" id="totalRegistrations">0</div>
+            <div class="stat-note">Public events you joined</div>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-top">
+                <span class="stat-label">Confirmed</span>
+                <span class="stat-icon">✓</span>
+            </div>
+
+            <div class="stat-number" id="confirmedRequests">0</div>
+            <div class="stat-note">Organising requests confirmed by VAYORA</div>
+        </article>
+
+    </section>
+
+    <!-- BOOKING MANAGEMENT -->
+
+    <section class="bookings-section">
+        <div class="section-heading">
+            <div>
+                <div class="section-kicker">ORGANISE</div>
+                <h2>Event Requests</h2>
+                <p>Requirements you submitted on Plan an Event.</p>
+            </div>
+            <a href="booking.html" class="small-button">+ Plan an Event</a>
+        </div>
+        <div class="booking-list" id="requestList"></div>
+        <div class="empty-state" id="requestEmpty">
+            <div class="empty-icon">✧</div>
+            <h3>No event requests yet</h3>
+            <p>Tell VAYORA what you want organised.</p>
+            <a href="booking.html" class="gold-button">Plan an Event ↗</a>
+        </div>
+    </section>
+
+    <section class="bookings-section">
+        <div class="section-heading">
+            <div>
+                <div class="section-kicker">ATTEND</div>
+                <h2>Registrations</h2>
+                <p>Public events you registered to attend.</p>
+            </div>
+            <a href="events.html" class="small-button">+ Explore Events</a>
+        </div>
+        <div class="booking-list" id="registrationList"></div>
+        <div class="empty-state" id="registrationEmpty">
+            <div class="empty-icon">✧</div>
+            <h3>No registrations yet</h3>
+            <p>Explore public events and register to attend.</p>
+            <a href="events.html" class="gold-button">Explore Events ↗</a>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <p><strong>VAYORA</strong></p>
+    <p>Plan it. Experience it. Remember it.</p>
+    <p>© 2026 VAYORA. All rights reserved.</p>
+</footer>
+
+<script src="vayora.js"></script>
+<script>
+var requestList = document.getElementById("requestList");
+var registrationList = document.getElementById("registrationList");
+var nextStatus = { pending: "discussion", discussion: "confirmed", confirmed: "confirmed" };
+
+function textEl(tag, className, value) {
+    var element = document.createElement(tag);
+    element.className = className;
+    element.textContent = value;
+    return element;
+}
+
+function dateTile(dateString) {
+    var date = Vayora.formatDate(dateString);
+    var tile = document.createElement("div");
+    tile.className = "date-tile";
+    tile.append(
+        textEl("div", "month", date.month),
+        textEl("div", "day", date.day),
+        textEl("div", "year", date.year)
+    );
+    return tile;
+}
+
+var session = Vayora.getSession();
+var eyebrow = document.querySelector(".welcome .eyebrow");
+var intro = document.querySelector(".welcome p");
+if (session) {
+    eyebrow.textContent = "WELCOME, " + session.name.toUpperCase();
+} else {
+    intro.textContent = "Log in to see event requests and the public events you have registered for.";
+    var loginLink = document.createElement("a");
+    loginLink.href = "login.html?next=" + encodeURIComponent("my-events.html");
+    loginLink.className = "gold-button";
+    loginLink.textContent = "Login";
+    document.querySelector(".welcome-bottom").appendChild(loginLink);
+}
+
+function render() {
+    var current = Vayora.getSession();
+    var requests = current
+        ? Vayora.getRequests().filter(function (item) {
+            return String(item.accountEmail || item.email || "").toLowerCase() === current.email;
+        })
+        : [];
+    var registrations = Vayora.getRegistrations();
+
+    document.getElementById("totalRequests").textContent = requests.length;
+    document.getElementById("totalRegistrations").textContent = registrations.length;
+    document.getElementById("confirmedRequests").textContent =
+        requests.filter(function (item) { return item.status === "confirmed"; }).length;
+
+    requestList.replaceChildren();
+    document.getElementById("requestEmpty").style.display = requests.length ? "none" : "block";
+    requests.forEach(function (item) {
+        var card = document.createElement("article");
+        card.className = "booking-card";
+        var info = document.createElement("div");
+        info.className = "booking-info";
+        info.append(
+            textEl("div", "booking-id", "REQUEST · " + item.id),
+            textEl("h3", "", item.eventType + " for " + item.name)
+        );
+        var meta = document.createElement("div");
+        meta.className = "event-meta";
+        meta.append(
+            textEl("span", "", item.location),
+            textEl("span", "", item.guests + " guests"),
+            textEl("span", "", item.budget),
+            textEl("span", "", (item.services || []).join(", "))
+        );
+        info.appendChild(meta);
+
+        var actions = document.createElement("div");
+        actions.className = "booking-actions";
+        actions.appendChild(textEl("span", "status " + (item.status || "pending"), Vayora.statusLabel(item.status)));
+        if (item.status !== "confirmed") {
+            var advance = document.createElement("button");
+            advance.type = "button";
+            advance.className = "small-button";
+            advance.textContent = "Mark " + Vayora.statusLabel(nextStatus[item.status] || "discussion");
+            advance.addEventListener("click", function () {
+                Vayora.updateRequestStatus(item.id, nextStatus[item.status] || "discussion");
+                render();
+            });
+            actions.appendChild(advance);
+        }
+        card.append(dateTile(item.date), info, actions);
+        requestList.appendChild(card);
+    });
+
+    registrationList.replaceChildren();
+    document.getElementById("registrationEmpty").style.display = registrations.length ? "none" : "block";
+    registrations.forEach(function (item) {
+        var card = document.createElement("article");
+        card.className = "booking-card";
+        var info = document.createElement("div");
+        info.className = "booking-info";
+        info.append(
+            textEl("div", "booking-id", "REGISTRATION · " + item.id),
+            textEl("h3", "", item.eventName)
+        );
+        var meta = document.createElement("div");
+        meta.className = "event-meta";
+        meta.append(
+            textEl("span", "", item.time),
+            textEl("span", "", item.location),
+            textEl("span", "", item.priceLabel || (item.fee === "Free" ? "FREE" : item.fee)),
+            textEl("span", "", item.name)
+        );
+        info.appendChild(meta);
+        var actions = document.createElement("div");
+        actions.className = "booking-actions";
+        actions.appendChild(textEl("span", "status registered", "Registered"));
+        var view = document.createElement("a");
+        view.href = "event-details.html?id=" + encodeURIComponent(item.eventId);
+        view.className = "small-button";
+        view.textContent = "Registration Details";
+        actions.appendChild(view);
+        card.append(dateTile(item.date), info, actions);
+        registrationList.appendChild(card);
+    });
+}
+
+render();
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.querySelector(".mobile-nav-toggle");
+  const nav = document.querySelector(".site-header .main-nav");
+  if (toggle && nav) {
+    toggle.addEventListener("click", function () {
+      const open = nav.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+      toggle.textContent = open ? "×" : "☰";
+    });
+  }
+});
+</script>
+<script src="auth-nav.js"></script>
+</body>
+</html>
+
